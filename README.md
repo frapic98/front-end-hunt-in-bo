@@ -1,6 +1,3 @@
-# Alessandro Pistola - 285802
-Progetto per il corso:
+# Front-end per Sistemi context-aware:
 
-**Piattaforme digitali per la gestione del territorio**
-
-Link alla relazione -> [myTimetable](https://github.com/alepistola/MyTimetable)
+**Sviluppo front-end del progetto Hunt-in-bo**
