@@ -1,0 +1,577 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-ide",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2022-11-04T17:12:24Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704126413",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "Navile",
+        "addr:housenumber": "3",
+        "addr:postcode": "40128",
+        "addr:street": "Via di Saliceto",
+        "defibrillator:location": "2° piano sede TPER",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3501073,
+          44.5121772
+        ]
+      },
+      "id": "node/1704126413"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704171518",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Donato",
+        "addr:housenumber": "18",
+        "addr:postcode": "40127",
+        "addr:street": "Viale Aldo Moro",
+        "defibrillator:location": "PIANO TERRA PRESSO PORTINERIA",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3627196,
+          44.5093622
+        ]
+      },
+      "id": "node/1704171518"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704177071",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Donato",
+        "addr:housenumber": "30",
+        "addr:postcode": "40127",
+        "addr:street": "Viale Aldo Moro",
+        "defibrillator:location": "PIANO QUINTO PRESSO ATRIO CENTRALE",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;surveyw",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3650364,
+          44.50859
+        ]
+      },
+      "id": "node/1704177071"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704178533",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Donato",
+        "addr:housenumber": "37",
+        "addr:postcode": "40127",
+        "addr:street": "Via Stalingrado",
+        "defibrillator:location": "VICINO PORTINERIA PRINCIPALE",
+        "emergency": "defibrillator",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3575035,
+          44.5110648
+        ]
+      },
+      "id": "node/1704178533"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704178889",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Donato",
+        "addr:housenumber": "38",
+        "addr:postcode": "40127",
+        "addr:street": "Viale Aldo Moro",
+        "defibrillator:location": "PIANO TERRA e PIANO 20  PRESSO ATRIO ASCENSORI",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3656056,
+          44.5081649
+        ]
+      },
+      "id": "node/1704178889"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704237849",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Vitale",
+        "addr:housenumber": "1",
+        "addr:postcode": "40126",
+        "addr:street": "Largo Respighi",
+        "defibrillator:location": "ALL'INGRESSO DEL TEATRO",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3503767,
+          44.4964133
+        ]
+      },
+      "id": "node/1704237849"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704256873",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Vitale",
+        "addr:housenumber": "2",
+        "addr:postcode": "40126",
+        "addr:street": "Via Francesco Selmi",
+        "defibrillator:location": "ATRIO PRINCIPALE",
+        "emergency": "defibrillator",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.354016,
+          44.4962145
+        ]
+      },
+      "id": "node/1704256873"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704269349",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "San Vitale",
+        "addr:housenumber": "3",
+        "addr:postcode": "40138",
+        "addr:street": "Viale Gian Battista Ercolani",
+        "defibrillator:location": "AMBULATORIO PIANO TERRA",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3569583,
+          44.4929362
+        ]
+      },
+      "id": "node/1704269349"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704540357",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "Santo Stefano",
+        "addr:housenumber": "126",
+        "addr:postcode": "40136",
+        "addr:street": "Viale Antonio Aldini",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "opening_hours": "Mo-Fr 09:00-19:00",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3350111,
+          44.4877973
+        ]
+      },
+      "id": "node/1704540357"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704666888",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "Saragozza",
+        "addr:housenumber": "2",
+        "addr:postcode": "40123",
+        "addr:street": "Vicolo Stradellaccio",
+        "defibrillator:location": "ATRIO DELL'INGRESSO PRINCIPALE \nACCANTO ALLA PORTINERIA",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3374089,
+          44.4912897
+        ]
+      },
+      "id": "node/1704666888"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704711593",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "Saragozza",
+        "addr:housenumber": "34",
+        "addr:postcode": "40123",
+        "addr:street": "Via Nosadella",
+        "defibrillator:location": "NELLA STANZA A SINISTRA DALLA PORTA D'ACCESSO, DI FIANCO ALLA FOTOCOPIATRICE.",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3349409,
+          44.4913137
+        ]
+      },
+      "id": "node/1704711593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704724190",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "Porto",
+        "addr:housenumber": "4",
+        "addr:postcode": "40122",
+        "addr:street": "Via Guglielmo Marconi",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "source": "Comune di Bologna;survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3367894,
+          44.4962209
+        ]
+      },
+      "id": "node/1704724190"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1704742914",
+        "addr:city": "Bologna",
+        "addr:country": "IT",
+        "addr:district": "Porto",
+        "addr:housenumber": "6",
+        "addr:postcode": "40122",
+        "addr:street": "Largo Caduti del Lavoro",
+        "defibrillator:location": "PIANO TERRA PORTINERIA AGREA",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "Comune di Bologna",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3391843,
+          44.5015668
+        ]
+      },
+      "id": "node/1704742914"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4793748238",
+        "addr:city": "Bologna",
+        "addr:housenumber": "3",
+        "addr:street": "Viale Carlo Pepoli",
+        "defibrillator:location": "ATRIO SCUOLA - ADIACENTE ALLA SCALA PRINCIPALE",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3296912,
+          44.4917012
+        ]
+      },
+      "id": "node/4793748238"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5336501323",
+        "emergency": "defibrillator",
+        "source": "survey"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3076879,
+          44.4974121
+        ]
+      },
+      "id": "node/5336501323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5440205722",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "level": "1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3301463,
+          44.4871638
+        ]
+      },
+      "id": "node/5440205722"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5459205707",
+        "access": "yes",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "level": "3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3301312,
+          44.487725
+        ]
+      },
+      "id": "node/5459205707"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5504654221",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "level": "0"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3289586,
+          44.4879142
+        ]
+      },
+      "id": "node/5504654221"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5839936889",
+        "defibrillator:location": "Sulle scale tra il 1° e 2° piano",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "Croce Rossa Italiana"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3096016,
+          44.5052303
+        ]
+      },
+      "id": "node/5839936889"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5902440305",
+        "emergency": "defibrillator",
+        "indoor": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3395978,
+          44.500786
+        ]
+      },
+      "id": "node/5902440305"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6335023485",
+        "emergency": "defibrillator",
+        "indoor": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.330827,
+          44.4878616
+        ]
+      },
+      "id": "node/6335023485"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7995106491",
+        "defibrillator:location": "ALL'INTERNO DELLA PALAZZINA PALESTRA:\nDALLA PORTINERIA BISOGNA ATTRAVERSARE IL CORTILE INTERNO DELLA SCUOLA",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "source": "survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3389544,
+          44.4967365
+        ]
+      },
+      "id": "node/7995106491"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7996944736",
+        "defibrillator:location": "ENTRANDO DALL'INGRESSO PRINCIPALE - VISITATORI DEL PADIGLIONE 23 IL DAE E' SITUATO NELL'ATRIO SUBITO A DESTRA VICINO ALLA PORTINERIA",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3586011,
+          44.4918813
+        ]
+      },
+      "id": "node/7996944736"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7996944737",
+        "defibrillator:location": "TRA L'ACCESSO AL BAR SIRIO E L'ACCESSO AL PADIGLIONE 17",
+        "emergency": "defibrillator",
+        "indoor": "no",
+        "operator": "118 Emilia-Romagna",
+        "source": "survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3597021,
+          44.4916792
+        ]
+      },
+      "id": "node/7996944737"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7997211155",
+        "defibrillator:location": "PIANO TERRA (PORTINERIA) e PIANO 20 (ATRIO ASCENSORI)",
+        "emergency": "defibrillator",
+        "indoor": "yes",
+        "operator": "118 Emilia-Romagna",
+        "source": "survey",
+        "website": "https://www.118er.it/dae/dae.asp"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.365826,
+          44.5077203
+        ]
+      },
+      "id": "node/7997211155"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10005261911",
+        "check_date": "2022-08-26",
+        "emergency": "defibrillator",
+        "fixme": "Check exact location and access"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3434069,
+          44.5054077
+        ]
+      },
+      "id": "node/10005261911"
+    }
+  ]
+}
