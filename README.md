@@ -1,4 +1,4 @@
-Front-end per il progetto del corso:
+# Front-end per Sistemi context-aware:
 
-**Sistemi context-aware**
+**Sviluppo front-end del progetto Hunt-in-bo**
 
