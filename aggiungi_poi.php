@@ -324,7 +324,7 @@
     </script>
     <script>
       //function to add a new tag with incremental id
-    
+    /*
       
       var i = 1;
       $(document).ready(function(){
@@ -332,11 +332,21 @@
           i++;
           $("#addTag").before('<div class="form-group row"><div class="col-sm-4 mb-3 mb-sm-0"><input type="text" class="form-control form-control-user" id="Tag'+i+'" placeholder="Es. Altezza" name="Tag"><small class="form-text text-muted ml-4">Tag</small></div><div class="col-sm-4"><input type="text" class="form-control form-control-user" id= "Valore'+i+'" placeholder="157" name="Valore"><small class="form-text text-muted ml-4">Valore</small></div></div>');
         });
-      });
+      });*/
     </script>
     <script>
       //function to get the value of the input field with the name vUsername
-     
+     <script> 
+      document.getElementById('addTag').onclick = function(){
+      var newField = document.createElement('input');
+      newField.setAttribute('type','text');
+      newField.setAttribute('name','survey_options[]');
+      newField.setAttribute('class','survey_options');
+      newField.setAttribute('siz',50);
+      newField.setAttribute('placeholder','Another Field');
+      document.getElementById('survey_options').survey_options.appendChild(newField);
+    }
+     </script>
 
 
       //function to convert in JSON the form data with the button Inserisci
