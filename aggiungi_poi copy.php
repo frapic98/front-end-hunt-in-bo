@@ -205,13 +205,13 @@
                 <div class="form-group row">   
                     <div class="col-sm-4">
                         <select class="form-control form-control-user" id="codice_poi" name="category">
-                            <option value="10">Seleziona una tipologia di Poi</option>
-                            <option value="0">Fontanelle</option>
-                            <option value="1">Pannchine</option>
-                            <option value="2">Bagni pubblici</option>
-                            <option value="3">Parchi</option>
-                            <option value="4">Cestini Immondizia</option>
-                            <option value="5">Defribillatori</option>
+                            <option value=10>Seleziona una tipologia di Poi</option>
+                            <option value=0>Fontanelle</option>
+                            <option value=1>Pannchine</option>
+                            <option value=2>Bagni pubblici</option>
+                            <option value=3>Parchi</option>
+                            <option value=4>Cestini Immondizia</option>
+                            <option value=5>Defribillatori</option>
                         </select>
                         <small class="form-text text-muted ml-4">Tipologia Poi</small>
                     </div>
@@ -220,7 +220,7 @@
                         <small class="form-text text-muted ml-4">Descrizione</small>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id="Descrizione" name="rank">
+                        <input type="number" class="form-control form-control-user" id="Descrizione" name="rank" min="0" max="10">
                         <small class="form-text text-muted ml-4">Rank</small>
                     </div>
 
@@ -228,21 +228,23 @@
 
                 <div class="form-group row">
                     <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="Lat" name="lat">
+                        <input type="number" class="form-control form-control-user" id="Lat" name="lat">
                         <small class="form-text text-muted ml-4">Latitudine</small>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "Long" name="long">
+                        <input type="number" class="form-control form-control-user" id= "Long" name="long">
                         <small class="form-text text-muted ml-4">Longitudine</small>
                     </div>
                 </div>
+                </form>
                 <div class="form-group row">
                 <div class="col-sm-4 mb-3 mb-sm-0" id="tag_list">
-                        <input type="text" class="form-control form-control-user" id="Tag[]" placeholder="Es. Stato" name="Tag">
+                        <input type="text" class="form-control form-control-user" id="Tag[]" placeholder="Es. Stato" name="Tag[]">
                         <small class="form-text text-muted ml-4" id="Tag_label" >Tag</small>
                     </div>
+                    
                     <div class="col-sm-4" id="valore_list">
-                        <input type="text" class="form-control form-control-user" id="Valore[]" placeholder="Es. Rotto, Funziona" name="Valore">
+                        <input type="text" class="form-control form-control-user" id="Valore[]" placeholder="Es. Rotto, Funziona" name="Valore[]">
                         <small class="form-text text-muted ml-4" >Valore</small>
                     </div>
                 
@@ -252,7 +254,7 @@
                     <a href="#" id="addTag">Aggiungi Tag</a>
                 </div>
                 
-                </form>
+               
           
             
 
@@ -321,7 +323,7 @@
       addTag.onclick = function(){
       var newTag = document.createElement('input');
       newTag.setAttribute('type','text');
-      newTag.setAttribute('id','Tag[]');
+      newTag.setAttribute('name', 'Tag[]');
       newTag.setAttribute('class','form-control form-control-user');
       newTag.setAttribute('placeholder','Es.Colore');
       
@@ -335,7 +337,7 @@
 
       var newValue = document.createElement('input');
       newValue.setAttribute('type','text');
-      newValue.setAttribute('id','Valore[]');
+      newValue.setAttribute('name', 'Valore[]');
       newValue.setAttribute('class','form-control form-control-user');
       newValue.setAttribute('placeholder','Rosso');
 
@@ -345,21 +347,58 @@
 
       valore_list.appendChild(newValue);
       valore_list.appendChild(newValueLabel);
+
+     
+
 } 
     </script>
 
     <script>
-      //function to get the value of the input field with the name vUsername
-     
+ 
+//function to add tag and value to a map json
+
 
 
       //function to convert in JSON the form data with the button Inserisci
       $(document).ready(function(){
         $("#Inserisci").click(function(){
+           //add all the tags value in the same object json
+           var json1 = {"tags":{}};
+            var tag = document.getElementsByName('Tag[]');
+            var value = document.getElementsByName('Valore[]');
+            for(var i = 0; i < tag.length; i++){
+              json1.tags[tag[i].value] = value[i].value;
+              //tags.push(tag[i].value:value[i].value);
+              
+            }
+            var json1 = JSON.stringify(json1);
+
+
           var form = document.getElementById("form_poi");
           var data = new FormData(form);
           var json = JSON.stringify(Object.fromEntries(data));
-          console.log(json);
+
+         
+          const obj1 = JSON.parse(json);
+          const obj2 = JSON.parse(json1);
+          
+          const mergedObject = {
+            ...obj1,
+            ...obj2
+          };
+          
+          console.log(JSON.stringify(mergedObject))
+
+          //how to convert the category in the mergedObject in number
+          mergedObject.category = parseInt(mergedObject.category);
+          mergedObject.rank=parseInt(mergedObject.rank);
+          console.log(JSON.stringify(mergedObject))
+          //console.log(mergedObject);
+
+
+
+
+
         });
       });
       
