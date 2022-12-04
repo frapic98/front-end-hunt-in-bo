@@ -200,70 +200,66 @@
 			<h1 class="h3 mb-2 text-gray-800">Inserimento nuovo Point of Interest </h1>
 			<p class="mb-4">Inserisci i valori nel form sottostante e premi "inserisci" per confermare l'operazione, "annulla" per tornare indietro</p>
         
-            <form id="form" >
+            <form id="form_poi" >
            
                 <div class="form-group row">   
                     <div class="col-sm-4">
-                        <select class="form-control form-control-user" id="codice_poi">
-                            <option value="10">Seleziona una tipologia di Poi</option>
-                            <option value="0">Fontanelle</option>
-                            <option value="1">Pannchine</option>
-                            <option value="2">Bagni pubblici</option>
-                            <option value="3">Parchi</option>
-                            <option value="4">Cestini Immondizia</option>
-                            <option value="5">Defribillatori</option>
+                        <select class="form-control form-control-user" id="codice_poi" name="category">
+                            <option value=10>Seleziona una tipologia di Poi</option>
+                            <option value=0>Fontanelle</option>
+                            <option value=1>Panchine</option>
+                            <option value=2>Bagni pubblici</option>
+                            <option value=3>Parchi</option>
+                            <option value=4>Cestini Immondizia</option>
+                            <option value=5>Defribillatori</option>
                         </select>
                         <small class="form-text text-muted ml-4">Tipologia Poi</small>
                     </div>
                     <div class="col-sm-4">
-                      
-                        <input type="text" class="form-control form-control-user" id="nome"value="" required>
-                        <small class="form-text text-muted ml-4">Nome</small>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="Lat" name="Lat">
-                        <small class="form-text text-muted ml-4">Latitudine</small>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "Long" name="Long">
-                        <small class="form-text text-muted ml-4">Longitudine</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="Descrizione" name="Descrizione">
+                        <input type="text" class="form-control form-control-user" id="Descrizione" name="description">
                         <small class="form-text text-muted ml-4">Descrizione</small>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "Stato" placeholder="Es. Rotto, Funziona" name="Stato">
-                        <small class="form-text text-muted ml-4">Stato Operativo</small>
+                        <input type="number" class="form-control form-control-user" id="Descrizione" name="rank" min="0" max="10">
+                        <small class="form-text text-muted ml-4">Rank</small>
                     </div>
+
                 </div>
+
                 <div class="form-group row">
-                <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="Tag" placeholder="Es. Altezza" name="Tag">
-                        <small class="form-text text-muted ml-4">Tag</small>
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <input type="number" class="form-control form-control-user" id="Lat" name="lat">
+                        <small class="form-text text-muted ml-4">Latitudine</small>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "Valore" placeholder="157" name="Valore">
-                        <small class="form-text text-muted ml-4">Valore</small>
+                        <input type="number" class="form-control form-control-user" id= "Long" name="long">
+                        <small class="form-text text-muted ml-4">Longitudine</small>
+                    </div>
+                </div>
+                </form> 
+                <form id="tag_form">
+                <div class="form-group row">
+                  
+                <div class="col-sm-4 mb-3 mb-sm-0" id="tag_list">
+                        <input type="text" class="form-control form-control-user" id="Tag[]" placeholder="Es. Stato" name="Tag[]">
+                        <small class="form-text text-muted ml-4" id="Tag_label" >Tag</small>
+                    </div>
+                    
+                    <div class="col-sm-4" id="valore_list">
+                        <input type="text" class="form-control form-control-user" id="Valore[]" placeholder="Es. Rotto, Funziona" name="Valore[]">
+                        <small class="form-text text-muted ml-4" >Valore</small>
                     </div>
                 
                     </div>
-                <div class="col-sm-4" style="float:center">
+                     
+                <div style="position:relative">
                     
                     <a href="#" id="addTag">Aggiungi Tag</a>
+                    <a href="#" id="removeTag" style="position: relative; left: 26%;">Rimuovi Tag</a>
                 </div>
-                
-            
-          
-            
-
+                </form>
+               
             <div class="col-lg-6 mb-4">
-              <!-- Approach -->
               <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Anteprima Mappa</h6>
@@ -273,15 +269,11 @@
                   </div>
                 </div>
             </div>
-
             <input type="hidden" name="vUsername" value="" id="vUsername" />
                 <div class="mb-2 mt-4 row col-sm-12 col-12 col-md-12 col-lg-6 col-xl-6" style="float:center">
-                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla">
+                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla" id="Annulla">
                     <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="Inserisci" id="Inserisci" value="Inserisci" >
-                </div>
-            </form>
-          
-      
+                </div>     
         </div>
               <!-- /.container-fluid -->
       
@@ -306,6 +298,8 @@
   <script src="js/jquery.redirect.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
 
+  <script src="js/add_poi.js"> </script>
+  
   <script>
     //add a map with a draggable marker
     var map = L.map('map').setView([44.494887, 11.3426163], 14);
@@ -322,46 +316,7 @@
       document.getElementById("Long").value = lng;
     });
     </script>
-    <script>
-      //function to add a new tag with incremental id
-    /*
-      
-      var i = 1;
-      $(document).ready(function(){
-        $("#addTag").click(function(){
-          i++;
-          $("#addTag").before('<div class="form-group row"><div class="col-sm-4 mb-3 mb-sm-0"><input type="text" class="form-control form-control-user" id="Tag'+i+'" placeholder="Es. Altezza" name="Tag"><small class="form-text text-muted ml-4">Tag</small></div><div class="col-sm-4"><input type="text" class="form-control form-control-user" id= "Valore'+i+'" placeholder="157" name="Valore"><small class="form-text text-muted ml-4">Valore</small></div></div>');
-        });
-      });*/
-    </script>
-    <script>
-      //function to get the value of the input field with the name vUsername
-     <script> 
-      document.getElementById('addTag').onclick = function(){
-      var newField = document.createElement('input');
-      newField.setAttribute('type','text');
-      newField.setAttribute('name','survey_options[]');
-      newField.setAttribute('class','survey_options');
-      newField.setAttribute('siz',50);
-      newField.setAttribute('placeholder','Another Field');
-      document.getElementById('survey_options').survey_options.appendChild(newField);
-    }
-     </script>
-
-
-      //function to convert in JSON the form data with the button Inserisci
-      $(document).ready(function(){
-        $("#Inserisci").click(function(){
-          var form = document.getElementById("form");
-          var data = new FormData(form);
-          var json = JSON.stringify(Object.fromEntries(data));
-          console.log(json);
-        });
-      });
-      
-      
-      
-      </script>
-</body>
+    
+  </body>
 
 </html>
