@@ -1,3 +1,8 @@
+<?php
+    $error = (isset($_GET['error'])) ? $_GET['error'] : false;
+    $insert= (isset($_GET['insert'])) ? $_GET['insert'] : false;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,35 +70,6 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Corsi
-      </div>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="corsi.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Lista corsi</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Frequentare
-      </div>
-
-      <!-- Nav Item - associazioni -->
-      <li class="nav-item">
-        <a class="nav-link" href="frequentare.php">
-          <i class="fas fa-book"></i>
-          <span>Lista associazioni</span></a>
-      </li>
-
-       <!-- Divider -->
-       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Heading -->
       <div class="sidebar-heading">
@@ -279,11 +255,35 @@
       
         </div>
             <!-- End of Main Content -->
+          <div id="pannello" class="modal">
 
+            <div class="modal-content card shadow mb-4 col-6">
+              <div class="card-header py-3">
+                <h6 id="title" class="m-0 font-weight-bold text-primary modal-title"></h6><span id="close" class="close">&times;</span>
+              </div>
+            <div id="modal-text" class="card-body"> 
+            </div>
+            </div>
+          </div>
 <?php
   require_once 'footer.php';
 ?>
 
+<script src="js/add_poi.js"> </script>
+
+<?php if ($error) : ?>
+  <script>
+      apriPannello("Errore", "Credenziali errate");
+  </script>
+<?php endif; ?>
+
+<?php if ($insert) : ?>
+  <script>
+      apriPannello("Successo", "Punto inserito correttamente");
+      document.getElementById("form_poi").reset();
+      document.getElementById("tag_form").reset();
+  </script>
+<?php endif; ?>
   <!-- Bootstrap core JavaScript-->
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -317,7 +317,7 @@
     });
     </script>
     
-    <script src="js/add_poi.js"> </script>
+    
   </body>
 
 </html>

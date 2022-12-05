@@ -1,12 +1,11 @@
-/*$(document).ready(function() {
+$(document).ready(function() {
 
     var params = getSearchParameters();
     document.getElementById("titolo").innerHTML = decodeURI(params.username);
+    document.getElementById("emailText").value = decodeURI(params.email);
     document.getElementById("usernameText").value = decodeURI(params.username);
-    document.getElementById("nomeText").value = decodeURI(params.nome);
-    document.getElementById("cognomeText").value = decodeURI(params.cognome);
     document.getElementById("passwordText").value = decodeURI(params.password);
-    document.getElementById("corso_di_studioText").value = decodeURI(params.corso_di_studio);
+    document.getElementById("bioText").value = decodeURI(params.bio);
     document.getElementById("vUsername").value = decodeURI(params.username);
 });
 

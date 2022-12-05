@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-   /*var params = getSearchParameters();
+   var params = getSearchParameters();
 
     if(params.typeOp == "Salva")
     {
@@ -45,7 +45,7 @@ $(document).ready(function() {
                     "corso_di_studio": params.corso_di_studio
                 }
             ),
-            url: 'https://wobbly-earwig.glitch.me/api/utenti',
+            url: 'https://hunt-in-bo.herokuapp.com/user',
             success: function (obj, textstatus) {
                 apriPannello("Inserimento avvenuto con successo", "Inserito correttamente l'utente <b>" + params.username + "</b>");
                 getData();
@@ -57,9 +57,9 @@ $(document).ready(function() {
         });
     }
     else
-    {*/
+    {
         getData();
-    //}
+    }
 
     
 });

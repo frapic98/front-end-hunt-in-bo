@@ -117,17 +117,6 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -193,43 +182,36 @@
 			<h1 class="h3 mb-2 text-gray-800">Inserimento nuovo utente </h1>
 			<p class="mb-4">Inserisci i valori nel form sottostante e premi "inserisci" per confermare l'operazione, "annulla" per tornare indietro</p>
         
-            <form class="user" action="utenti.php" method="get">
+      <form class="user" action="utenti.php" method="get">
 
-                <div class="form-group row">
-                    <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user"  id="usernameText" name="username" value="">
-                        <small class="form-text text-muted ml-4">Username</small>
-                    </div>
-                </div>
+        <div class="form-group row">
+            <div class="col-sm-4 mb-3 mb-sm-0">
+                <input type="email" class="form-control form-control-user"  id="emailText" name="email" value="">
+                <small class="form-text text-muted ml-4">Email</small>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control form-control-user" id="usernameText" name="username" value="">
+                <small class="form-text text-muted ml-4">Username</small>
+            </div>
+        </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id="nomeText" name="nome" value="">
-                        <small class="form-text text-muted ml-4">Nome</small>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id="cognomeText" name="cognome" value="">
-                        <small class="form-text text-muted ml-4">Cognome</small>
-                    </div>
-                </div>
+        <div class="form-group row">
+            <div class="col-sm-4 mb-3 mb-sm-0">
+                <input type="password" class="form-control form-control-user" id="passwordText" name="password" value="">
+                <small class="form-text text-muted ml-4">Password</small>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control form-control-user" id= "bioText" name="bio" value="">
+                <small class="form-text text-muted ml-4">Bio</small>
+            </div>
+        </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="passwordText" name="password" value="">
-                        <small class="form-text text-muted ml-4">Password</small>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "corso_di_studioText" name="corso_di_studio" value="">
-                        <small class="form-text text-muted ml-4">Corso di studio</small>
-                    </div>
-                </div>
-
-                <input type="hidden" name="vUsername" value="" id="vUsername" />
-                <div class="mb-2 mt-4 row col-sm-12 col-12 col-md-12 col-lg-6 col-xl-6" style="float:right">
-                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla">
-                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Inserisci">
-                </div>
-            </form>
+        <input type="hidden" name="vUsername" value="" id="vUsername" />
+        <div class="mb-2 mt-4 row col-sm-12 col-12 col-md-12 col-lg-6 col-xl-6" style="float:right">
+            <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla">
+            <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Inserisci">
+        </div>
+        </form>
                 
       
         </div>

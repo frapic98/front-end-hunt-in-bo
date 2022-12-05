@@ -197,30 +197,23 @@
 
                 <div class="form-group row">
                     <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user"  id="usernameText" name="username" value="">
+                        <input type="email" class="form-control form-control-user"  id="emailText" name="email" value="">
+                        <small class="form-text text-muted ml-4">Email</small>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-user" id="usernameText" name="username" value="">
                         <small class="form-text text-muted ml-4">Username</small>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id="nomeText" name="nome" value="">
-                        <small class="form-text text-muted ml-4">Nome</small>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id="cognomeText" name="cognome" value="">
-                        <small class="form-text text-muted ml-4">Cognome</small>
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="text" class="form-control form-control-user" id="passwordText" name="password" value="">
+                        <input type="password" class="form-control form-control-user" id="passwordText" name="password" value="">
                         <small class="form-text text-muted ml-4">Password</small>
                     </div>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "corso_di_studioText" name="corso_di_studio" value="">
-                        <small class="form-text text-muted ml-4">Corso di studio</small>
+                        <input type="text" class="form-control form-control-user" id= "bioText" name="bio" value="">
+                        <small class="form-text text-muted ml-4">Bio</small>
                     </div>
                 </div>
 

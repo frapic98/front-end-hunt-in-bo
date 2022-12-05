@@ -71,36 +71,6 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Corsi
-      </div>
-
-      <!-- Nav Item - corsi -->
-      <li class="nav-item">
-        <a class="nav-link" href="corsi.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Lista corsi</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Frequentare
-      </div>
-
-      <!-- Nav Item - associazioni -->
-      <li class="nav-item">
-        <a class="nav-link" href="frequentare.php">
-          <i class="fas fa-book"></i>
-          <span>Lista associazioni</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
           Navigazione mappa
         </div>
       <!-- Nav Item - associazioni -->

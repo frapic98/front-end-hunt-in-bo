@@ -106,17 +106,21 @@ document.getElementById("Inserisci").onclick = function () {
 $.ajax({
   type: "POST",
   contentType: 'application/json',
+  dataType: 'text',
   data: JSON.stringify(mergedObject),
   url: 'https://hunt-in-bo.herokuapp.com/poi',
   headers: {"Content-type": "application/json","accept": "application/json","accept": "*/*","x-access-token": localStorage.getItem("jwt")},
-  success: function (data) {
+  success: function (data, status, xhr) {
+    //show a console log with the response
     console.log(data);
-    apriPannello("Successo", "Punto di interesse inserito con successo");
+    window.location.href = './aggiungi_poi.php?insert=true'
   },
-  error: function (data) {
-    console.log(data);
-    apriPannello("Errore", "Errore nell'inserimento del punto di interesse");
+  error: function (jqXhr, textStatus, errorMessage) {
+    console.log('Error' + errorMessage);
+    window.location.href = './aggiungi.php?error=true'
+    
   }
+
 });
 };
 document.getElementById("Annulla").onclick = function () {
