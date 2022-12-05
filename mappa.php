@@ -257,8 +257,145 @@
   </script>-->
 
   <script>
-    var url1 = 'export.geojson';  
+    // get the data.json for the fontanelle from the server with ajax
+
+
+    /*var url1;
+    // get the data.json for the fontanelle from the server with xmlhttprequest
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        url1=this.response;
+        console.log(url1);
+        var myArr = JSON.parse(this.response);
+        var obj=JSON.stringify(myArr);
+        
+        
+      }
+    };
+    xhttp.open("GET", "https://hunt-in-bo.herokuapp.com/poi/2");
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("accept", "application/json");
+    xhttp.setRequestHeader("x-access-token", localStorage.getItem("jwt"));
+    xhttp.send();
+    console.log(url1);*/
+    
+    
+   
+    //get the data.json for the fontanelle from the server with ajax and put it on the map
+//get the data.json for the fontanelle from the server with ajax request and put the result on the map
+ 
+
+    
+    function get_poi(j){
+    var url=$.ajax({
+      url: "https://hunt-in-bo.herokuapp.com/poi/"+j,
+      type: "GET",
+      dataType: "json",
+      global: false,
+      async:false,
+      headers: {
+        "Content-type": "application/json",
+        "accept": "application/json",
+        "x-access-token": localStorage.getItem("jwt")
+      },
+      success: function(data) {
+        console.log(JSON.stringify(data));
+
+        return data;
+
+      }
+    }).responseText;
+
+    //console.log(url1);    
+    url=JSON.parse(url);
+    
+  //convert lat and long to float
+
+
+    //convert url1 to geojson
+    var geojson = {
+      "type": "FeatureCollection",
+      "features": []
+    };
+    for (var i = 0; i < url.length; i++) {
+      var obj = url[i];
+      var feature = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [parseFloat(obj.long), parseFloat(obj.lat)]          
+        },
+        "id": obj.id,
+        "properties": {
+          "id": obj.id,
+          "rank": obj.rank   
+        }
+      };
+      geojson.features.push(feature);
+
+    }
+    return geojson;
+    }
+
+
+
+    
+
+  
+
+   /* j=1;
+    var url1=$.ajax({
+      url: "https://hunt-in-bo.herokuapp.com/poi/"+j,
+      type: "GET",
+      dataType: "json",
+      global: false,
+      async:false,
+      headers: {
+        "Content-type": "application/json",
+        "accept": "application/json",
+        "x-access-token": localStorage.getItem("jwt")
+      },
+      success: function(data) {
+        console.log(JSON.stringify(data));
+
+        return data;
+
+      }
+    }).responseText;
+
+    //console.log(url1);    
+    url1=JSON.parse(url1);
+    
+  //convert lat and long to float
+
+
+    //convert url1 to geojson
+    var geojson = {
+      "type": "FeatureCollection",
+      "features": []
+    };
+    for (var i = 0; i < url1.length; i++) {
+      var obj = url1[i];
+      var feature = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [parseFloat(obj.long), parseFloat(obj.lat)]          
+        },
+        "id": obj.id,
+        "properties": {
+          "id": obj.id,
+          "rank": obj.rank   
+        }
+      };
+      geojson.features.push(feature);
+
+    }
+    console.log(geojson);*/
+    //var url1 = 'export.geojson';  
     var url2 = 'AED.geojson';  
+
     var quart='quartieri.geojson';
 
 	var map = L.map('map').setView([44.494887, 11.3426163], 14); 
@@ -276,101 +413,75 @@
   });
 
 
-
-
-	 //Set function for color ramp
-	function getColor(league){
-		return league == 'NL' ? 'blue' :
-			   league == 'AL' ? 'red' :
-								'white';
-	       }	
 	
+  function create_marker(Icon){
+  valo = L.geoJson(null, {	
+            pointToLayer: function(feature, latlng) {
+				      return L.marker(latlng, {icon: Icon}); 
+            }/*,  
+			      onEachFeature: function (feature, layer) {
+				      layer._leaflet_id = feature.id;
+			
+              var popupContent = "<p>The <b>" +
+              feature.properties.emergency + "</b> is here,</br> Street: "+ 
+              feature.properties["addr:street"] +" n° " + feature.properties["addr:housenumber"] + "</p>";
+                  
+              if (feature.properties && feature.properties.popupContent) {
+                popupContent += feature.properties.popupContent;
+              }
+                layer.bindPopup(popupContent);			
+			}*/
+		});
+    return valo;
+  
+}
+
+
 	// Set style function that sets fill color property
   var fontaIcon = L.icon({
     iconUrl: 'water.png',
     iconSize: [25,20]});
 		
-// layer 1
+  var fontanelle = create_marker(fontaIcon);	
+  fontanelle.addData(get_poi(1));
 
-  
-     var fontanelle = L.geoJson(null, {
-			
-            pointToLayer: function(feature, latlng) {
-		
-				return L.marker(latlng,{icon:fontaIcon});  //.bindTooltip(feature.properties.Name);
-            },
-			
-				onEachFeature: function (feature, layer) {
-					layer._leaflet_id = feature.id;
-					var popupContent = "<p>The <b>" +
-					feature.properties.amenity + "</b>is here.</p>";
-							
-					if (feature.properties && feature.properties.popupContent) {
-						popupContent += feature.properties.popupContent;
-					}
-						layer.bindPopup(popupContent);
-
-				}
-				
-				});
-   
-	
-	$.getJSON(url1, function(data) {			
-		fontanelle.addData(data).addTo(map);
-	});	
 //END Layer1
-
-/// Layer 2
-		/*function getColor2(league){
-		return league == 'NFC' ? 'green' :
-			   league == 'AFC' ? 'orange' :
-								'white';
-	       }	*/
 	
-	// Set style function that sets fill color property
-	function style2(feature) {
-		return {
-			//fillColor: setColor(feature.properties.League),
-			fillOpacity: 0.5,
-			weight: 2,
-			opacity: 1,
-			color: 'red',
-			dashArray: '3'
-		};
-	}	
+var benchIcon = L.icon({
+    iconUrl: 'bench.png',
+    iconSize: [25,20]
+}); 
+var panchina = create_marker(benchIcon);
+panchina.addData(get_poi(2));
 
-      var defiIcon = L.icon({
+
+var wcIcon = L.icon({
+    iconUrl: 'wc.png',
+    iconSize: [25,20]
+}); 
+var wc = create_marker(wcIcon);
+wc.addData(get_poi(3));
+
+var parkIcon = L.icon({
+    iconUrl: 'trees.png',
+    iconSize: [25,20]
+});
+var park = create_marker(parkIcon);
+park.addData(get_poi(4));
+
+var binIcon = L.icon({
+    iconUrl: 'bin.png',
+    iconSize: [25,20]
+});
+var bin = create_marker(binIcon);
+bin.addData(get_poi(5));
+
+  var defiIcon = L.icon({
     iconUrl: 'defi.png',
     iconSize: [25,20]
-  }); 
-  //layer2
-       var defribillatori = L.geoJson(null, {
-			
-            pointToLayer: function(feature, latlng) {
-		
-				return L.marker(latlng, {icon: defiIcon});  //.bindTooltip(feature.properties.Name);
-            },
-			
-			onEachFeature: function (feature, layer) {
-				layer._leaflet_id = feature.id;
-
-			
-				var popupContent = "<p>The <b>" +
-				feature.properties.emergency + "</b> is here,</br> Street: "+ 
-        feature.properties["addr:street"] +" n° " + feature.properties["addr:housenumber"] + "</p>";
-						
-				if (feature.properties && feature.properties.popupContent) {
-					popupContent += feature.properties.popupContent;
-				}
-					layer.bindPopup(popupContent);
-			
-
-			}
-		});
-		
-	$.getJSON(url2, function(data2) {			
-		defribillatori.addData(data2);
-	});		
+}); 
+var defibrillatori = create_marker(defiIcon);
+defibrillatori.addData(get_poi(6));
 	
 //print on map the  quartieri.gejson file
 
@@ -419,9 +530,13 @@
             };
 
             var overlayMaps = {
-              "Quartieri": quartieri,
-			        'Fontanelle': fontanelle,
-             'Defribillatore"': defribillatori
+              'Fontanelle': fontanelle,
+              "Panchina": panchina,
+              "Bagni Pubblci": wc,
+              "Parchi": park,
+              "Cestini": bin,
+              "Quartieri": quartieri,       
+             'Defibrillatore"': defibrillatori
             };
 
 		L.control.layers(baseMaps, overlayMaps).addTo(map);

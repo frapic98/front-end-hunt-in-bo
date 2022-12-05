@@ -206,12 +206,12 @@
                     <div class="col-sm-4">
                         <select class="form-control form-control-user" id="codice_poi" name="category">
                             <option value=10>Seleziona una tipologia di Poi</option>
-                            <option value=0>Fontanelle</option>
-                            <option value=1>Panchine</option>
-                            <option value=2>Bagni pubblici</option>
-                            <option value=3>Parchi</option>
-                            <option value=4>Cestini Immondizia</option>
-                            <option value=5>Defribillatori</option>
+                            <option value=1>Fontanelle</option>
+                            <option value=2>Panchine</option>
+                            <option value=3>Bagni pubblici</option>
+                            <option value=4>Parchi</option>
+                            <option value=5>Cestini Immondizia</option>
+                            <option value=6>Defribillatori</option>
                         </select>
                         <small class="form-text text-muted ml-4">Tipologia Poi</small>
                     </div>
@@ -298,7 +298,7 @@
   <script src="js/jquery.redirect.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
 
-  <script src="js/add_poi.js"> </script>
+  
   
   <script>
     //add a map with a draggable marker
@@ -317,6 +317,7 @@
     });
     </script>
     
+    <script src="js/add_poi.js"> </script>
   </body>
 
 </html>

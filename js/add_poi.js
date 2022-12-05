@@ -27,6 +27,32 @@ addTag.onclick = function () {
   valore_list.appendChild(newValueLabel);
 };
 
+
+function apriPannello(data1, data)
+{
+  let msg = data;
+  let titolo = data1;
+
+  modal = document.getElementById("pannello");
+  title = document.getElementById("title");
+  modalText = document.getElementById("modal-text");
+  modalText.innerHTML = msg;
+  title.innerHTML = titolo;
+  closeSpan = document.getElementById("close");
+
+  modal.style.display = "block";
+  closeSpan.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  
+  window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+  }
+}
+
 //function to remove the last tag and value
 removeTag.onclick = function () {
   var tag_list = document.getElementById("tag_list");
@@ -60,23 +86,39 @@ document.getElementById("Inserisci").onclick = function () {
   //convert the category in the mergedObject in number
   mergedObject.category = parseInt(mergedObject.category);
   mergedObject.rank = parseInt(mergedObject.rank);
-  console.log(JSON.stringify(mergedObject));
+  //console.log(JSON.stringify(mergedObject));
 
   ///post the json to the server with xhttp
   /*var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "https://hunt-in-bo.herokuapp.com/poi");
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("accept", "application/json");
+  xhttp.setRequestHeader("accept", "*///*");
+  /*xhttp.setRequestHeader("x-access-token", localStorage.getItem("jwt"));
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
     }
   };
-  xhttp.open("POST", "https://hunt-in-bo.herokuapp.com/poi");
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.setRequestHeader("accept", "application/json");
-  xhttp.setRequestHeader("accept", "*///*");
-  //xhttp.setRequestHeader("x-access-token", localStorage.getItem("jwt"));
-  //xhttp.send(JSON.stringify(mergedObject));
-};
+  xhttp.send(JSON.stringify(mergedObject));
+};*/
 
+$.ajax({
+  type: "POST",
+  contentType: 'application/json',
+  data: JSON.stringify(mergedObject),
+  url: 'https://hunt-in-bo.herokuapp.com/poi',
+  headers: {"Content-type": "application/json","accept": "application/json","accept": "*/*","x-access-token": localStorage.getItem("jwt")},
+  success: function (data) {
+    console.log(data);
+    apriPannello("Successo", "Punto di interesse inserito con successo");
+  },
+  error: function (data) {
+    console.log(data);
+    apriPannello("Errore", "Errore nell'inserimento del punto di interesse");
+  }
+});
+};
 document.getElementById("Annulla").onclick = function () {
   document.getElementById("form_poi").reset();
   document.getElementById("tag_form").reset();
