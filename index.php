@@ -76,7 +76,7 @@
       <!-- Nav Item - associazioni -->
       <li class="nav-item">
         <a class="nav-link" href="mappa.php">
-          <i class="fas fa-book"></i>
+        <i class="fas fa-map"></i>
           <span>Mappa</span></a>
       </li>
       <li class="nav-item ">
@@ -201,8 +201,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">N. Fontanelle</div>
-                      <div id="nfontanelle" class="h5 mb-0 font-weight-bold text-gray-800">Loading..</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">N. Poi</div>
+                      <div id="npoi" class="h5 mb-0 font-weight-bold text-gray-800">Loading..</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>

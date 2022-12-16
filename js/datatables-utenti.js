@@ -36,21 +36,22 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            data: JSON.stringify(
+            data:(
                 { 
                     "username": params.username,
-                    "nome" : params.nome,
-                    "cognome" : params.cognome,
+                    "email" : params.email,
                     "password": params.password,
-                    "corso_di_studio": params.corso_di_studio
+                    "bio": params.bio
                 }
             ),
             url: 'https://hunt-in-bo.herokuapp.com/user',
+            headers: {"accept": "application/json", "Content-Type": "application/json"},
             success: function (obj, textstatus) {
                 apriPannello("Inserimento avvenuto con successo", "Inserito correttamente l'utente <b>" + params.username + "</b>");
                 getData();
             },
             error: function () {
+                
                 alert("Si è verificato un errore durante l'inserimento dell'utente " + params.username + "\nRiprovare ad eseguire l'operazione.");
                 getData();
             }

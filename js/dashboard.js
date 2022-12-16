@@ -1,14 +1,24 @@
 $(document).ready(function() {
     // UTENTI
-   /* $.get( "https://hunt-in-bo.herokuapp.com/user")
+   /*$.get( "https://hunt-in-bo.herokuapp.com/user")
     .done(function( data ) {
         // usa data
         console.log(data);
-        document.getElementById("nutenti").innerHTML = data.length
+        $.ajax({
+        type: "GET",
+            url: "https://hunt-in-bo.herokuapp.com/user",
+            dataType: 'json',
+            headers: {"x-access-token": localStorage.getItem("jwt")},
+            success: function (nutenti){
+                console.log(nutenti);
+                document.getElementById("nutenti").innerHTML = nutenti.length;
+            }
+    })
     })
     .fail(function( data ){
         alert("Si è verificato un errore nell'ottenere i dati degli utenti")
-    }); */
+    }); 
+    */
 
         $.ajax
         ({
@@ -22,8 +32,22 @@ $(document).ready(function() {
             }
         });
 
+
+        $.ajax
+        ({
+            type: "GET",
+            url: "https://hunt-in-bo.herokuapp.com/poi",
+            dataType: 'json',
+            headers: {"x-access-token": localStorage.getItem("jwt")},
+            success: function (npoi){
+                console.log(npoi);
+                document.getElementById("npoi").innerHTML = npoi.length;
+            }
+        });
+      
+
     // CORSI
-    /*$.get( "export.geojson")
+   /* $.get( "export.geojson")
     .done(function( data ) {
         // usa data
         console.log(data);

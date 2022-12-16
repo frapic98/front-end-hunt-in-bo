@@ -1,12 +1,12 @@
 $(document).ready(function() {
 
     var params = getSearchParameters();
-    document.getElementById("titolo").innerHTML = decodeURI(params.username);
+    document.getElementById("titolo").innerHTML = decodeURI(params.titolo);
     document.getElementById("emailText").value = decodeURI(params.email);
     document.getElementById("usernameText").value = decodeURI(params.username);
     document.getElementById("passwordText").value = decodeURI(params.password);
     document.getElementById("bioText").value = decodeURI(params.bio);
-    document.getElementById("vUsername").value = decodeURI(params.username);
+    //document.getElementById("vUsername").value = decodeURI(params.username);
 });
 
 function getSearchParameters() {

@@ -234,7 +234,7 @@
                     <a href="#" id="removeTag" style="position: relative; left: 26%;">Rimuovi Tag</a>
                 </div>
                 </form>
-               
+</br>
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
                   <div class="card-header py-3">

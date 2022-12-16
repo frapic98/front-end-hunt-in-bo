@@ -75,7 +75,7 @@
       <!-- Nav Item - associazioni -->
       <li class="nav-item active">
         <a class="nav-link" href="mappa.php">
-          <i class="fas fa-book"></i>
+        <i class="fas fa-map"></i>
           <span>Mappa</span></a>
       </li>
       <li class="nav-item ">
