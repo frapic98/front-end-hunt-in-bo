@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "leaflet": "^1.9.3",
+    "leaflet-heatmap": "^1.0.0"
+  }
+}

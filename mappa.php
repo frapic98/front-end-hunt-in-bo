@@ -207,7 +207,8 @@
 
   <!-- Make sure you put this AFTER Leaflet's CSS -->
  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
- <script src="jquery-2.1.1.min.js"></script> 
+ <script src="leaflet-heat.js"></script>
+
   <!--<script> 
     var fontan;
     var map = L.map('map').setView([44.494887, 11.3426163], 14);
@@ -260,10 +261,36 @@
 //get the data.json for the fontanelle from the server with ajax request and put the result on the map
  
 
+
+    //function to get the number of poi for the neighborhood
+    function get_poi_number(){
+      var url=$.ajax({
+        url: "https://hunt-in-bo.herokuapp.com/statistics/poiDensity",
+        type: "GET",
+        dataType: "json",
+        global: false,
+        async:false,
+        headers: {
+          "Content-type": "application/json",
+          "accept": "application/json",
+          "x-access-token": localStorage.getItem("jwt")
+        },
+        success: function(data) {
+         // console.log(data);
+          return data;
+        }
+      }).responseText;
+    
+      return url;
+    }
     
     function get_poi(j){
+      if(j==0){
+       var urll= "https://hunt-in-bo.herokuapp.com/poi"}
+      else{
+        var urll= "https://hunt-in-bo.herokuapp.com/poi/"+j}
     var url=$.ajax({
-      url: "https://hunt-in-bo.herokuapp.com/poi/"+j,
+      url:urll,
       type: "GET",
       dataType: "json",
       global: false,
@@ -274,7 +301,7 @@
         "x-access-token": localStorage.getItem("jwt")
       },
       success: function(data) {
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
 
         return data;
 
@@ -309,6 +336,7 @@
       geojson.features.push(feature);
 
     }
+    console.log(geojson);
     return geojson;
     }
 
@@ -410,6 +438,9 @@
   
 }
 
+valore=get_poi_number();
+
+valore=JSON.parse(valore);
 
 	// Set style function that sets fill color property
   var fontaIcon = L.icon({
@@ -465,7 +496,7 @@ defibrillatori.addData(get_poi(6));
         return {color: feature.properties.color};
       },
       onEachFeature: function(feature,layer){
-        layer.bindPopup(feature.properties.nomequart);
+        layer.bindPopup("<b>"+feature.properties.nomequart+"</b>"+ " ha " +valore[feature.properties.nomequart] +" POI");
         if(feature.properties.nomequart == "Santo Stefano"){
           layer.setStyle({color: 'red'});
         }
@@ -492,8 +523,31 @@ defibrillatori.addData(get_poi(6));
   $.getJSON(quart,function(data3){
   quartieri.addData(data3);
   });	
-   
 
+ /*var heat = L.heatLayer([
+	[50.5, 30.5, 0.2], // lat, lng, intensity
+	[50.6, 30.4, 0.5],
+  [50.7, 30.3, 0.2],
+], {radius: 25}).addTo(map);*/
+
+//cicle for to get poi from 1 to 6 with the function get_poi
+var marker=create_marker(L.icon({iconUrl: 'pin.png',iconSize: [20,20]}));
+marker.addData(get_poi(0));
+var pois=get_poi(0);
+var heat;
+
+   var locations = pois.features.map(function(rat) {
+    var location = rat.geometry.coordinates.reverse();
+    location.push(0.5);
+    console.log(location);
+    return location;
+  });
+  
+  heat = L.heatLayer(locations, { radius: 35 });
+
+
+  
+  //
 /////////////////////Layer Control  /////////////////////////////////////////////////
 	
             var baseMaps = {
@@ -509,8 +563,12 @@ defibrillatori.addData(get_poi(6));
               "Bagni Pubblci": wc,
               "Parchi": park,
               "Cestini": bin,
-              "Quartieri": quartieri,       
-             'Defibrillatore"': defibrillatori
+              "Quartieri": quartieri, 
+              'Heatmap': heat,      
+              'Tutti i POI': marker,
+             'Defibrillatore"': defibrillatori,
+              
+          
             };
 
 		L.control.layers(baseMaps, overlayMaps).addTo(map);
