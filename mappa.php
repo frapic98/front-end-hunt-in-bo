@@ -21,6 +21,21 @@
   <link href="css/sb-admin-2.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css">
+  <style>
+    .legend {
+    line-height: 30px;
+    color: #555;
+    background: white;
+    padding: 6px 8px;
+  }
+  .legend i {
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+    </style>
 </head>
 
 <body id="page-top">
@@ -284,6 +299,28 @@
       return url;
     }
     
+    function get_user_number(){
+      var url=$.ajax({
+        url: "https://hunt-in-bo.herokuapp.com/statistics/poiCheckIn",
+        type: "GET",
+        dataType: "json",
+        global: false,
+        async:false,
+        headers: {
+          "Content-type": "application/json",
+          "accept": "application/json",
+          "x-access-token": localStorage.getItem("jwt")
+        },
+        success: function(data) {
+         // console.log(data);
+          return data;
+        }
+      }).responseText;
+    
+      return url;
+    }
+
+
     function get_poi(j){
       if(j==0){
        var urll= "https://hunt-in-bo.herokuapp.com/poi"}
@@ -437,10 +474,21 @@
     return valo;
   
 }
-
+//commentato
 valore=get_poi_number();
 
 valore=JSON.parse(valore);
+
+user_check=get_user_number();
+user_check=JSON.parse(user_check);
+user_check['Navile']=6;
+user_check['Porto - Saragozza']=11;
+user_check['San Donato - San Vitale']=16;
+user_check['Santo Stefano']=21;
+user_check['Savena']=26;
+
+console.log(user_check);
+
 
 	// Set style function that sets fill color property
   var fontaIcon = L.icon({
@@ -448,7 +496,7 @@ valore=JSON.parse(valore);
     iconSize: [25,20]});
 		
   var fontanelle = create_marker(fontaIcon);	
-  fontanelle.addData(get_poi(1));
+  //fontanelle.addData(get_poi(1));
 
 //END Layer1
 	
@@ -457,7 +505,7 @@ var benchIcon = L.icon({
     iconSize: [25,20]
 }); 
 var panchina = create_marker(benchIcon);
-panchina.addData(get_poi(2));
+//panchina.addData(get_poi(2));
 
 
 var wcIcon = L.icon({
@@ -465,31 +513,49 @@ var wcIcon = L.icon({
     iconSize: [25,20]
 }); 
 var wc = create_marker(wcIcon);
-wc.addData(get_poi(3));
+//wc.addData(get_poi(3));
 
 var parkIcon = L.icon({
     iconUrl: 'trees.png',
     iconSize: [25,20]
 });
 var park = create_marker(parkIcon);
-park.addData(get_poi(4));
+//park.addData(get_poi(4));
 
 var binIcon = L.icon({
     iconUrl: 'bin.png',
     iconSize: [25,20]
 });
 var bin = create_marker(binIcon);
-bin.addData(get_poi(5));
+//bin.addData(get_poi(5));
 
   var defiIcon = L.icon({
     iconUrl: 'defi.png',
     iconSize: [25,20]
 }); 
 var defibrillatori = create_marker(defiIcon);
-defibrillatori.addData(get_poi(6));
+//defibrillatori.addData(get_poi(6));
 	
 //print on map the  quartieri.gejson file
 
+function getColor(d) {
+        return  d > 250  ? '#800026' :
+                d > 200  ? '#BD0026' :
+                d > 150  ? '#E31A1C' :
+                d > 100  ? '#FC4E2A' :
+                d > 50   ? '#FD8D3C' :
+                            '#FED976';
+                          
+}
+
+function getColorUser(d) {
+        return  d > 25  ? '#442e19' :
+                d > 20  ? '#475928' :  
+                d > 15  ? '#2d6135' :
+                d > 10  ? '#008000' :
+                d > 5   ? '#469536' :
+                            '#b7d5ac';
+}
     // add GeoJSON layer to the map once the file is loaded
     var quartieri= L.geoJson(null,{
       style: function(feature){
@@ -497,29 +563,30 @@ defibrillatori.addData(get_poi(6));
       },
       onEachFeature: function(feature,layer){
         layer.bindPopup("<b>"+feature.properties.nomequart+"</b>"+ " ha " +valore[feature.properties.nomequart] +" POI");
-        if(feature.properties.nomequart == "Santo Stefano"){
-          layer.setStyle({color: 'red'});
-        }
-        else if(feature.properties.nomequart == "San Donato - San Vitale"){
-          layer.setStyle({color: 'blue'});
-        }
-        else if(feature.properties.nomequart == "Navile"){
-          layer.setStyle({color: 'green'});
-        }
-        else if(feature.properties.nomequart == "Borgo Panigale - Reno"){
-          layer.setStyle({color: 'yellow'});
-        }
-        else if(feature.properties.nomequart == "Porto - Saragozza"){
-          layer.setStyle({color: 'purple'});
-        }
-        else if(feature.properties.nomequart == "Savena"){
-          layer.setStyle({color: 'orange'});
-        }
-        
+        layer.setStyle({color: 'white', fillColor: getColor(valore[feature.properties.nomequart]),opacity: 1,fillOpacity: 0.7});  
+      }
+    });
+
+
+
+    var user_checkin= L.geoJson(null,{
+      style: function(feature){
+        return {color: feature.properties.color};
+      },
+      onEachFeature: function(feature,layer){
+        layer.bindPopup("<b>"+feature.properties.nomequart+"</b>"+ " ha " +user_check[feature.properties.nomequart] +" utenti che hanno richiesto un POI");
+       
+          layer.setStyle({color: 'white', fillColor: getColorUser(user_check[feature.properties.nomequart]),opacity: 1,fillOpacity: 0.9});
         
       }
     });
 
+
+  $.getJSON(quart,function(data3){
+  user_checkin.addData(data3);
+  });	
+  
+    //commentato
   $.getJSON(quart,function(data3){
   quartieri.addData(data3);
   });	
@@ -530,7 +597,8 @@ defibrillatori.addData(get_poi(6));
   [50.7, 30.3, 0.2],
 ], {radius: 25}).addTo(map);*/
 
-//cicle for to get poi from 1 to 6 with the function get_poi
+//commentato
+/*
 var marker=create_marker(L.icon({iconUrl: 'pin.png',iconSize: [20,20]}));
 marker.addData(get_poi(0));
 var pois=get_poi(0);
@@ -544,7 +612,7 @@ var heat;
   });
   
   heat = L.heatLayer(locations, { radius: 35 });
-
+*/
 
   
   //
@@ -558,21 +626,47 @@ var heat;
             };
 
             var overlayMaps = {
-              'Fontanelle': fontanelle,
+              /*'Fontanelle': fontanelle,
               "Panchina": panchina,
               "Bagni Pubblci": wc,
               "Parchi": park,
-              "Cestini": bin,
+              "Cestini": bin,*/
               "Quartieri": quartieri, 
-              'Heatmap': heat,      
+              "Checkin": user_checkin,
+              /*'Heatmap': heat,      
               'Tutti i POI': marker,
-             'Defibrillatore"': defibrillatori,
+             'Defibrillatore"': defibrillatori,*/
               
           
             };
 
 		L.control.layers(baseMaps, overlayMaps).addTo(map);
+    
 
+    
+
+
+    var legend = L.control({position: 'bottomright'});
+
+    //create a legend for the map
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 50, 100, 150, 200, 250],
+            grades_user = [0, 5, 10, 15, 20, 25],
+            labels = [];
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        
+        for (var i = 0; i < grades_user.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColorUser(grades_user[i] + 1) + '"></i> ' +
+                grades_user[i] + (grades_user[i + 1] ? '&ndash;' + grades_user[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+    legend.addTo(map);
  
   </script>
 </body>
