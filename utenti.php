@@ -134,7 +134,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">alepistola</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="spanne"></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -221,7 +221,8 @@
 
   <!-- Page level custom scripts -->
   <script src="js/datatables-utenti.js"></script>
-
+  <script>document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username; </script>
+  
 </body>
 
 </html>

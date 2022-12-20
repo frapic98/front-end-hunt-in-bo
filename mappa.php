@@ -35,6 +35,14 @@
     margin-right: 8px;
     opacity: 0.7;
 }
+
+#btn_grou {
+  position: absolute;
+  top: 616px;
+  left: 248px;
+  padding: 10px;
+  z-index: 400;
+}
     </style>
 </head>
 
@@ -152,7 +160,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">alepistola</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="spanne"></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -187,10 +195,12 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800"></h1>
-                <div id="map" style="height: 570px;">
-                </div>
+                <div id="map" style="height: 570px;"></div>
               <!-- /.container-fluid -->
-      
+              <div id="btn_grou">
+                <button id="refreshButton" onclick="addQuart()">Densità POI</button>
+                <button id="userCheckIn" onclick="addCheckIn()">CheckIn Utenti</button>
+              </div>
             </div>
             <!-- End of Main Content -->
 
@@ -247,6 +257,7 @@
   </script>-->
 
   <script>
+    document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;
     // get the data.json for the fontanelle from the server with ajax
 
 
@@ -288,7 +299,7 @@
         headers: {
           "Content-type": "application/json",
           "accept": "application/json",
-          "x-access-token": localStorage.getItem("jwt")
+          "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
         },
         success: function(data) {
          // console.log(data);
@@ -309,7 +320,7 @@
         headers: {
           "Content-type": "application/json",
           "accept": "application/json",
-          "x-access-token": localStorage.getItem("jwt")
+          "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
         },
         success: function(data) {
          // console.log(data);
@@ -335,7 +346,7 @@
       headers: {
         "Content-type": "application/json",
         "accept": "application/json",
-        "x-access-token": localStorage.getItem("jwt")
+        "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function(data) {
         //console.log(JSON.stringify(data));
@@ -553,7 +564,7 @@ function getColorUser(d) {
                 d > 20  ? '#475928' :  
                 d > 15  ? '#2d6135' :
                 d > 10  ? '#008000' :
-                d > 5   ? '#469536' :
+                d > 5   ? '#4cbb17' :
                             '#b7d5ac';
 }
     // add GeoJSON layer to the map once the file is loaded
@@ -613,7 +624,21 @@ var heat;
   
   heat = L.heatLayer(locations, { radius: 35 });
 */
+function addQuart(){
+  map.removeLayer(user_checkin);
+  map.removeControl(legenduser);
+  quartieri.addTo(map);
+  
+    legend.addTo(map);
+}
 
+function addCheckIn(){
+  map.removeLayer(quartieri);
+  map.removeControl(legend);
+  user_checkin.addTo(map);
+  
+    legenduser.addTo(map);
+}
   
   //
 /////////////////////Layer Control  /////////////////////////////////////////////////
@@ -645,11 +670,33 @@ var heat;
 
     
 
-
     var legend = L.control({position: 'bottomright'});
 
     //create a legend for the map
     legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 50, 100, 150, 200, 250],
+            
+            labels = [];
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+};
+
+
+
+    var legenduser = L.control({position: 'bottomright'});
+
+    //create a legend for the map
+    legenduser.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend'),
             grades = [0, 50, 100, 150, 200, 250],
@@ -666,7 +713,7 @@ var heat;
 
         return div;
     };
-    legend.addTo(map);
+    //legend.addTo(map);
  
   </script>
 </body>

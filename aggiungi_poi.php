@@ -139,7 +139,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">alepistola</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="spanne"></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -301,6 +301,7 @@
   
   
   <script>
+    document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;
     //add a map with a draggable marker
     var map = L.map('map').setView([44.494887, 11.3426163], 14);
     var marker = L.marker([44.494887, 11.3426163], {draggable: true}).addTo(map);

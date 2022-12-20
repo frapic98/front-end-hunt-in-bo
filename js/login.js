@@ -18,13 +18,25 @@ function login() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       const objects = JSON.parse(this.responseText);
-      localStorage.setItem("jwt", objects['token']);
+      //get the value of the token and the username from the response and store them in the local storage
+      delete objects["password"];
+      delete objects["email"];
+      delete objects["bio"];
+      delete objects["id"];
+
+      localStorage.setItem("jwt", JSON.stringify(objects));
+
+
+      //console.log(localStorage.getItem(jwt));
       window.location.href = './index.php'
-      console.log(objects);
+      console.log((JSON.parse(localStorage.getItem(jwt))).token);
+      console.log((JSON.parse(localStorage.getItem(jwt))).username);
+
+   
       
         
       } else {
-          
+
           window.location.href = './login.php?error=true'
          
       }

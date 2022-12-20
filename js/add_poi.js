@@ -109,7 +109,7 @@ $.ajax({
   dataType: 'text',
   data: JSON.stringify(mergedObject),
   url: 'https://hunt-in-bo.herokuapp.com/poi',
-  headers: {"Content-type": "application/json","accept": "application/json","accept": "*/*","x-access-token": localStorage.getItem("jwt")},
+  headers: {"Content-type": "application/json","accept": "application/json","accept": "*/*","x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
   success: function (data, status, xhr) {
     //show a console log with the response
     console.log(data);

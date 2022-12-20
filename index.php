@@ -25,7 +25,6 @@
 </head>
 
 <body id="page-top">
-
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -133,11 +132,12 @@
               </div>
             </li>
 
-
+            
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">alepistola</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="spanne">ale</span>
+                
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -282,6 +282,7 @@
   <!-- Page level custom scripts -->
   <script src="js/dashboard.js"></script>
 
+
   <script>
     function logout() {
     localStorage.removeItem("jwt");
@@ -291,7 +292,9 @@
   <!-- Make sure you put this AFTER Leaflet's CSS -->
  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
  <script src="jquery-2.1.1.min.js"></script> 
-  <<script>
+  <script>
+    document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;
+    console.log((JSON.parse(localStorage.getItem("jwt"))).username);
     var map = L.map('map').setView([44.494887, 11.3426163], 14);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);

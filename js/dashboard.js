@@ -25,10 +25,10 @@ $(document).ready(function() {
             type: "GET",
             url: "https://hunt-in-bo.herokuapp.com/user",
             dataType: 'json',
-            headers: {"x-access-token": localStorage.getItem("jwt")},
+            headers: {"x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
             success: function (nutenti){
-                console.log(nutenti);
                 document.getElementById("nutenti").innerHTML = nutenti.length;
+                //document.getElementById("spanne").innerHTML = "cavallo";
             }
         });
 
@@ -38,7 +38,7 @@ $(document).ready(function() {
             type: "GET",
             url: "https://hunt-in-bo.herokuapp.com/poi",
             dataType: 'json',
-            headers: {"x-access-token": localStorage.getItem("jwt")},
+            headers: {"x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
             success: function (npoi){
                 console.log(npoi);
                 document.getElementById("npoi").innerHTML = npoi.length;

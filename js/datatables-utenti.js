@@ -70,7 +70,7 @@ function getData()
     $.ajax({
         type: "GET",
         url: 'https://hunt-in-bo.herokuapp.com/user',
-        headers: {"x-access-token": localStorage.getItem("jwt")},
+        headers: {"x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
         dataType: 'json',
         success: function (obj, textstatus) {
                 var dataTable =  $('#dataTable').DataTable({
