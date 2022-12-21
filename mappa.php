@@ -200,6 +200,7 @@
               <div id="btn_grou">
                 <button id="refreshButton" onclick="addQuart()">Densità POI</button>
                 <button id="userCheckIn" onclick="addCheckIn()">CheckIn Utenti</button>
+                <button id="delaultView" onclick="setDefaultView()">Default</button>
               </div>
             </div>
             <!-- End of Main Content -->
@@ -233,6 +234,7 @@
   <!-- Make sure you put this AFTER Leaflet's CSS -->
  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
  <script src="leaflet-heat.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!--<script> 
     var fontan;
@@ -286,9 +288,89 @@
     //get the data.json for the fontanelle from the server with ajax and put it on the map
 //get the data.json for the fontanelle from the server with ajax request and put the result on the map
  
+//create a json object with the data for the request
+    var mergedObject = {
+      "k": 1,
+      "start_date": "2022-11-10",
+      "end_date": "2022-12-20"
+    };
+    
+ 
+    function get_cluster(){
+      var url=$.ajax({
+        url: "https://hunt-in-bo.herokuapp.com/statistics/userClustering",
+        type: "POST",
+        dataType: "text",
+        data: JSON.stringify(mergedObject),
+        global: false,
+        async:false,
+        headers: {
+          "Content-type": "application/json",
+          "accept": "application/json",
+          "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
+        },
+        success: function(data) {
+          console.log(data);
+          //convert the points on the jsnon file in number
 
+
+          return data;
+        }
+      }).responseText;
+      console.log(url);
+      return JSON.parse(url);
+    }
+
+
+//convert the points on number and put them on the map
+    function convert_points(risposta){
+      var points=[];
+      for(var i=0; i<risposta.length; i++){
+        for(var j=0; j<risposta[i].points.length; j++){
+          points.push([parseFloat(risposta[i].points[j][0]), parseFloat(risposta[i].points[j][1])]);
+        }
+      }
+      
+      
+      return points;
+    }
+
+  
+  var conver=convert_points(get_cluster());
+
+  
+    
+  //convert lat and long to float
+function cluster(){
+
+    //convert url1 to geojson
+    var geojson = {
+      "type": "FeatureCollection",
+      "features": []
+    };
+    for (var i = 0; i<conver.length; i++) {
+      var feature = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [conver[i][1],conver[i][0]]          
+        }
+      };
+      geojson.features.push(feature);
+
+    }
+    console.log(geojson);
+    return geojson;
+    }
+
+  var clust_user=cluster();
+  
 
     //function to get the number of poi for the neighborhood
+    
+
+    //get_cluster();
+
     function get_poi_number(){
       var url=$.ajax({
         url: "https://hunt-in-bo.herokuapp.com/statistics/poiDensity",
@@ -492,11 +574,11 @@ valore=JSON.parse(valore);
 
 user_check=get_user_number();
 user_check=JSON.parse(user_check);
-user_check['Navile']=6;
+/*user_check['Navile']=6;
 user_check['Porto - Saragozza']=11;
 user_check['San Donato - San Vitale']=16;
 user_check['Santo Stefano']=21;
-user_check['Savena']=26;
+user_check['Savena']=26;*/
 
 console.log(user_check);
 
@@ -507,7 +589,7 @@ console.log(user_check);
     iconSize: [25,20]});
 		
   var fontanelle = create_marker(fontaIcon);	
-  //fontanelle.addData(get_poi(1));
+  fontanelle.addData(get_poi(1));
 
 //END Layer1
 	
@@ -515,8 +597,9 @@ var benchIcon = L.icon({
     iconUrl: 'bench.png',
     iconSize: [25,20]
 }); 
+
 var panchina = create_marker(benchIcon);
-//panchina.addData(get_poi(2));
+  panchina.addData(get_poi(2));
 
 
 var wcIcon = L.icon({
@@ -524,29 +607,42 @@ var wcIcon = L.icon({
     iconSize: [25,20]
 }); 
 var wc = create_marker(wcIcon);
-//wc.addData(get_poi(3));
+wc.addData(get_poi(3));
 
 var parkIcon = L.icon({
     iconUrl: 'trees.png',
     iconSize: [25,20]
 });
 var park = create_marker(parkIcon);
-//park.addData(get_poi(4));
+park.addData(get_poi(4));
 
 var binIcon = L.icon({
     iconUrl: 'bin.png',
     iconSize: [25,20]
 });
 var bin = create_marker(binIcon);
-//bin.addData(get_poi(5));
+bin.addData(get_poi(5));
 
   var defiIcon = L.icon({
     iconUrl: 'defi.png',
     iconSize: [25,20]
 }); 
 var defibrillatori = create_marker(defiIcon);
-//defibrillatori.addData(get_poi(6));
+defibrillatori.addData(get_poi(6));
 	
+var valol= L.geoJson(get_poi(0),{
+              pointToLayer: function(feature,latlng){
+                var marker = L.marker(latlng);
+                return marker;
+              }
+    });
+
+var valol2= L.geoJson(cluster(),{
+              pointToLayer: function(feature,latlng){
+                var marker = L.marker(latlng);
+                return marker;
+              }
+    });
 //print on map the  quartieri.gejson file
 
 function getColor(d) {
@@ -587,7 +683,7 @@ function getColorUser(d) {
       onEachFeature: function(feature,layer){
         layer.bindPopup("<b>"+feature.properties.nomequart+"</b>"+ " ha " +user_check[feature.properties.nomequart] +" utenti che hanno richiesto un POI");
        
-          layer.setStyle({color: 'white', fillColor: getColorUser(user_check[feature.properties.nomequart]),opacity: 1,fillOpacity: 0.9});
+          layer.setStyle({color: 'white', fillColor: getColorUser(user_check[feature.properties.nomequart]),opacity: 1,fillOpacity: 0.7});
         
       }
     });
@@ -609,21 +705,27 @@ function getColorUser(d) {
 ], {radius: 25}).addTo(map);*/
 
 //commentato
-/*
-var marker=create_marker(L.icon({iconUrl: 'pin.png',iconSize: [20,20]}));
-marker.addData(get_poi(0));
+
+
+
+
 var pois=get_poi(0);
+
+
+//var marker=create_marker(L.icon({iconUrl: 'pin.png',iconSize: [20,20]}));
+//marker.addData(get_poi(0));
+
 var heat;
 
    var locations = pois.features.map(function(rat) {
     var location = rat.geometry.coordinates.reverse();
     location.push(0.5);
-    console.log(location);
+    //console.log(location);
     return location;
   });
   
   heat = L.heatLayer(locations, { radius: 35 });
-*/
+
 function addQuart(){
   map.removeLayer(user_checkin);
   map.removeControl(legenduser);
@@ -639,6 +741,14 @@ function addCheckIn(){
   
     legenduser.addTo(map);
 }
+
+function setDefaultView(){
+  console.log("default");
+  map.removeLayer(quartieri);
+  map.removeControl(legend);
+  map.removeLayer(user_checkin);
+  map.removeControl(legenduser);
+}
   
   //
 /////////////////////Layer Control  /////////////////////////////////////////////////
@@ -651,18 +761,15 @@ function addCheckIn(){
             };
 
             var overlayMaps = {
-              /*'Fontanelle': fontanelle,
+              'Fontanelle': fontanelle,
               "Panchina": panchina,
               "Bagni Pubblci": wc,
               "Parchi": park,
-              "Cestini": bin,*/
-              "Quartieri": quartieri, 
-              "Checkin": user_checkin,
-              /*'Heatmap': heat,      
-              'Tutti i POI': marker,
-             'Defibrillatore"': defibrillatori,*/
-              
-          
+              "Cestini": bin,
+              'Defibrillatore': defibrillatori,
+              'Heatmap': heat,      
+              'Tutti i POI': valol,
+              'Tutti gli utenti': valol2,
             };
 
 		L.control.layers(baseMaps, overlayMaps).addTo(map);

@@ -32,8 +32,15 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary" type="button" data-dismiss="modal"  onclick="logout()">Logout</button>
+          <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="logout()">Logout</button>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    function logout() {
+    localStorage.removeItem("jwt");
+    window.location.href = './login.php'
+  }
+  </script>

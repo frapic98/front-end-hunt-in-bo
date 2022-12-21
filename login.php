@@ -1,6 +1,4 @@
-<?php
-    $error = (isset($_GET['error'])) ? $_GET['error'] : false;
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,14 +88,10 @@
     </div>
     </div>
 
-
+ 
     <script src="js/login.js"> </script>
 
-    <?php if ($error) : ?>
-    <script>
-       apriPannello("Errore", "Credenziali errate");
-    </script>
-    <?php endif; ?>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="lib/jquery/jquery.min.js"></script>

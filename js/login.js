@@ -1,7 +1,7 @@
-var jwt = localStorage.getItem("jwt");
+/*var jwt = localStorage.getItem("jwt");
 if (jwt != null) {
   window.location.href = './index.php'
-}
+}*/
 function login() {
   
   const email = document.getElementById("email").value;
@@ -11,7 +11,7 @@ function login() {
   xhttp.open("POST", "https://hunt-in-bo.herokuapp.com/login");
   xhttp.setRequestHeader("accept","application/json");
   xhttp.setRequestHeader("Content-Type","application/json");
-  xhttp.send(JSON.stringify({
+  xhttp.send(JSON.stringify({ 
     "email": email,
     "password": password
   }));
@@ -31,13 +31,11 @@ function login() {
       window.location.href = './index.php'
       console.log((JSON.parse(localStorage.getItem(jwt))).token);
       console.log((JSON.parse(localStorage.getItem(jwt))).username);
-
-   
       
-        
-      } else {
+      } 
+      else if(this.readyState == 4 && this.status == 400) {
 
-          window.location.href = './login.php?error=true'
+        apriPannello("Errore", "Credenziali errate");
          
       }
       

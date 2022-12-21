@@ -248,10 +248,13 @@
               <!-- Approach -->
               <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Anteprima Mappa</h6>
+                    <a href="mappa.php">
+                      <h6 class="m-0 font-weight-bold text-primary">Anteprima Mappa</h6>
+                    </a>
                   </div>
-                  <div id="map" style="height: 250px;">
-                    
+                  
+                    <div id="map" style="height: 250px;" >
+               
                   </div>
                 </div>
             </div>
@@ -283,15 +286,11 @@
   <script src="js/dashboard.js"></script>
 
 
-  <script>
-    function logout() {
-    localStorage.removeItem("jwt");
-    window.location.href = './login.php'
-  }
-  </script>
+ 
   <!-- Make sure you put this AFTER Leaflet's CSS -->
  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
  <script src="jquery-2.1.1.min.js"></script> 
+ <script src="js/mappa.js"></script>
   <script>
     document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;
     console.log((JSON.parse(localStorage.getItem("jwt"))).username);
@@ -301,16 +300,15 @@
     var marker = L.marker([44.4936765,11.3073532]).addTo(map);
 
   // load GeoJSON from an external file
-    $.getJSON("export.geojson",function(data){
+    
     // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data,{
+    L.geoJson(get_poi(0),{
       pointToLayer: function(feature,latlng){
         var marker = L.marker(latlng);
-        marker.bindPopup(feature.properties.amenity + '<br/>' + 'wheelchair: '+ feature.properties.wheelchair);
         return marker;
       }
     }).addTo(map);
-  });
+ 
   </script>
 </body>
 
