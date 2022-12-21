@@ -1,3 +1,8 @@
+<?php
+    $error = (isset($_GET['error'])) ? $_GET['error'] : false;
+    $insert= (isset($_GET['insert'])) ? $_GET['insert'] : false;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +22,7 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css">
 </head>
 
 <body id="page-top">
@@ -36,8 +41,8 @@
         <div class="sidebar-brand-text mx-3">BoloPoi</div>
       </a>
 
-       <!-- Divider -->
-       <hr class="sidebar-divider my-0">
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
@@ -55,7 +60,7 @@
       </div>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="utenti.html">
           <i class="fas fa-users"></i>
           <span> Lista utenti</span></a>
@@ -65,17 +70,18 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+
       <!-- Heading -->
       <div class="sidebar-heading">
           Navigazione mappa
         </div>
       <!-- Nav Item - associazioni -->
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="mappa.html">
-        <i class="fas fa-map"></i>
+          <i class="fas fa-map"></i>
           <span>Mappa</span></a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item active">
         <a class="nav-link" href="aggiungi_poi.html">
           <i class="fas fa-map-pin"></i>
           <span>Aggiungi Poi</span></a>
@@ -106,7 +112,6 @@
             <i class="fa fa-bars"></i>
           </button>
 
-
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -134,7 +139,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="spanne"></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -168,52 +173,103 @@
         <div class="container-fluid">
 
             <!-- Page Heading -->
-			<h1 class="h3 mb-2 text-gray-800">Inserimento nuovo utente </h1>
+			<h1 class="h3 mb-2 text-gray-800">Inserimento nuovo Point of Interest </h1>
 			<p class="mb-4">Inserisci i valori nel form sottostante e premi "inserisci" per confermare l'operazione, "annulla" per tornare indietro</p>
         
-      <form class="user" action="utenti.html" method="get">
+            <form id="form_poi" >
+           
+                <div class="form-group row">   
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-user" id="codice_poi" name="category">
+                            <option value=10>Seleziona una tipologia di Poi</option>
+                            <option value=1>Fontanelle</option>
+                            <option value=2>Panchine</option>
+                            <option value=3>Bagni pubblici</option>
+                            <option value=4>Parchi</option>
+                            <option value=5>Cestini Immondizia</option>
+                            <option value=6>Defribillatori</option>
+                        </select>
+                        <small class="form-text text-muted ml-4">Tipologia Poi</small>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control form-control-user" id="Descrizione" name="description">
+                        <small class="form-text text-muted ml-4">Descrizione</small>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-user" id="Descrizione" name="rank" min="0" max="10">
+                        <small class="form-text text-muted ml-4">Rank</small>
+                    </div>
 
-        <div class="form-group row">
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                <input type="email" class="form-control form-control-user"  id="emailText" name="email" value="">
-                <small class="form-text text-muted ml-4">Email</small>
-            </div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="usernameText" name="username" value="">
-                <small class="form-text text-muted ml-4">Username</small>
-            </div>
-        </div>
+                </div>
 
-        <div class="form-group row">
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                <input type="password" class="form-control form-control-user" id="passwordText" name="password" value="">
-                <small class="form-text text-muted ml-4">Password</small>
-            </div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id= "bioText" name="bio" value="">
-                <small class="form-text text-muted ml-4">Bio</small>
-            </div>
-        </div>
-
-        <input type="hidden" name="vUsername" value="" id="vUsername" />
-        <div class="mb-2 mt-4 row col-sm-12 col-12 col-md-12 col-lg-6 col-xl-6" style="float:right">
-            <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla">
-            <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Inserisci">
-        </div>
-        </form>
+                <div class="form-group row">
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <input type="number" class="form-control form-control-user" id="Lat" name="lat">
+                        <small class="form-text text-muted ml-4">Latitudine</small>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control form-control-user" id= "Long" name="long">
+                        <small class="form-text text-muted ml-4">Longitudine</small>
+                    </div>
+                </div>
+                </form> 
+                <form id="tag_form">
+                <div class="form-group row">
+                  
+                <div class="col-sm-4 mb-3 mb-sm-0" id="tag_list">
+                        <input type="text" class="form-control form-control-user" id="Tag[]" placeholder="Es. Stato" name="Tag[]">
+                        <small class="form-text text-muted ml-4" id="Tag_label" >Tag</small>
+                    </div>
+                    
+                    <div class="col-sm-4" id="valore_list">
+                        <input type="text" class="form-control form-control-user" id="Valore[]" placeholder="Es. Rotto, Funziona" name="Valore[]">
+                        <small class="form-text text-muted ml-4" >Valore</small>
+                    </div>
                 
-      
+                    </div>
+                     
+                <div style="position:relative">
+                    
+                    <a href="#" id="addTag">Aggiungi Tag</a>
+                    <a href="#" id="removeTag" style="position: relative; left: 26%;">Rimuovi Tag</a>
+                </div>
+                </form>
+              </br>
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Mappa</h6>
+                  </div>
+                  <div id="map" style="height: 350px">
+                    
+                  </div>
+                </div>
+            </div>
+            <input type="hidden" name="vUsername" value="" id="vUsername" />
+                <div class="mb-2 mt-4 row col-sm-12 col-12 col-md-12 col-lg-6 col-xl-6" style="float:center">
+                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla" id="Annulla">
+                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="Inserisci" id="Inserisci" value="Inserisci" >
+                </div>     
         </div>
               <!-- /.container-fluid -->
       
         </div>
             <!-- End of Main Content -->
+          <div id="pannello" class="modal">
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+            <div class="modal-content card shadow mb-4 col-6">
+              <div class="card-header py-3">
+                <h6 id="title" class="m-0 font-weight-bold text-primary modal-title"></h6><span id="close" class="close">&times;</span>
+              </div>
+            <div id="modal-text" class="card-body"> 
+            </div>
+            </div>
+          </div>
+   <!-- Footer -->
+   <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; BoloPoi 2020</span>
+            <span>Copyright &copy; BoloPoi 2022</span>
           </div>
         </div>
       </footer>
@@ -230,19 +286,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- The Modal -->
-  <div id="pannello" class="modal">
-
-    <div class="modal-content card shadow mb-4 col-6">
-      <div class="card-header py-3">
-        <h6 id="title" class="m-0 font-weight-bold text-primary modal-title"></h6><span id="close" class="close">&times;</span>
-      </div>
-      <div id="modal-text" class="card-body"> 
-      </div>
-    </div>
-  </div>
-
-
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -256,11 +299,15 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="logout()">Logout</button>
         </div>
       </div>
     </div>
   </div>
+
+
+<script src="js/add_poi.js"> </script>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="lib/jquery/jquery.min.js"></script>
@@ -274,8 +321,29 @@
 
   <!-- Page level plugins -->
   <script src="js/jquery.redirect.js"></script>
-  <script>document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;</script>
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
 
-</body>
+  
+  
+  <script>
+    document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;
+    //add a map with a draggable marker
+    var map = L.map('map').setView([44.494887, 11.3426163], 14);
+    var marker = L.marker([44.494887, 11.3426163], {draggable: true}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    //update the value of the input fields Lat e Long when the marker is dragged
+    marker.on('dragend', function(e) {
+      var lat = marker.getLatLng().lat;
+      var lng = marker.getLatLng().lng;
+      document.getElementById("Lat").value = lat;
+      document.getElementById("Long").value = lng;
+    });
+    </script>
+    
+    
+  </body>
 
 </html>

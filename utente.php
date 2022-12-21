@@ -36,12 +36,12 @@
         <div class="sidebar-brand-text mx-3">BoloPoi</div>
       </a>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+       <!-- Divider -->
+       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -56,7 +56,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item active">
-        <a class="nav-link" href="utenti.php">
+        <a class="nav-link" href="utenti.html">
           <i class="fas fa-users"></i>
           <span> Lista utenti</span></a>
       </li>
@@ -67,29 +67,18 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Corsi
-      </div>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="corsi.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Lista corsi</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Frequentare
-      </div>
-
+          Navigazione mappa
+        </div>
       <!-- Nav Item - associazioni -->
-      <li class="nav-item">
-        <a class="nav-link" href="frequentare.php">
-          <i class="fas fa-book"></i>
-          <span>Lista associazioni</span></a>
+      <li class="nav-item ">
+        <a class="nav-link" href="mappa.html">
+        <i class="fas fa-map"></i>
+          <span>Mappa</span></a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="aggiungi_poi.html">
+          <i class="fas fa-map-pin"></i>
+          <span>Aggiungi Poi</span></a>
       </li>
 
       <!-- Divider -->
@@ -193,7 +182,7 @@
 			<h1 class="h3 mb-2 text-gray-800">Modifica i dati dell'utente: </h1><h1 id="titolo" class="h3 mb-2 text-primary"></h1>
 			<p class="mb-4">Modifica i valori qui sotto riportati e premi "salva" per confermare l'operazione, "annulla" per tornare indietro</p>
         
-            <form class="user" action="utenti.php" method="get">
+            <form class="user" action="utenti.html" method="get">
 
                 <div class="form-group row">
                     <div class="col-sm-4 mb-3 mb-sm-0">

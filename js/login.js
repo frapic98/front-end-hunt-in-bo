@@ -1,6 +1,6 @@
 /*var jwt = localStorage.getItem("jwt");
 if (jwt != null) {
-  window.location.href = './index.php'
+  window.location.href = './index.html'
 }*/
 function login() {
   
@@ -28,7 +28,7 @@ function login() {
 
 
       //console.log(localStorage.getItem(jwt));
-      window.location.href = './index.php'
+      window.location.href = './index.html'
       console.log((JSON.parse(localStorage.getItem(jwt))).token);
       console.log((JSON.parse(localStorage.getItem(jwt))).username);
       

@@ -113,11 +113,14 @@ $.ajax({
   success: function (data, status, xhr) {
     //show a console log with the response
     console.log(data);
-    window.location.href = './aggiungi_poi.php?insert=true'
-  },
+    apriPannello("Successo", "Punto inserito correttamente");
+    document.getElementById("form_poi").reset();
+    document.getElementById("tag_form").reset();
+      },
   error: function (jqXhr, textStatus, errorMessage) {
     console.log('Error' + errorMessage);
-    window.location.href = './aggiungi.php?error=true'
+    apriPannello("Errore", "Qualcosa è andato storto");
+   
     
   }
 
