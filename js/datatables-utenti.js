@@ -79,42 +79,7 @@ function getData()
                     select: true,
                     order: [[ 0, "asc" ]],
                     dom: "lBfrtip",
-                    buttons: [
-                      {
-                          text: 'Modifica',
-                          className: 'btn btn-secondary btn-icon-split',
-                          action: function () {
-                              var rowData = dataTable.row('.selected').data();
-                              if(rowData !== undefined)
-                              {
-                                  $.redirect('utente.php', rowData, "GET");
-                              }
-                              
-                          }
-                      },
-                      {
-                          text: 'Elimina',
-                          className: 'btn btn-primary btn-icon-split',
-                          action: function () {
-                              var rowData = dataTable.row('.selected').data();
-                              let vurl = "https://hunt-in-bo.herokuapp.com/user" + rowData.username
-                              if(rowData !== undefined)
-                              {
-                                  $.ajax({
-                                      type: "DELETE",
-                                      url: vurl,
-                                      success: function(result){
-                                          dataTable.row('.selected').remove().draw( false );
-                                          apriPannello("Eliminazione avvenuta con successo", "Eliminato correttamente l'utente: <b>" + rowData.username + "</b>");
-                                      },
-                                      error: function(){
-                                          alert("Si è verificato un errore durante la rimozione dell'utente: "+ rowData.username);
-                                      } 
-                                  });
-                              }
-                          }
-                      }
-                  ],
+                    buttons: [],
                   columns: [
                       { data: "id"}, {data: "email"}, {data: "username"}, {data: "bio"},
                   ]
@@ -166,4 +131,5 @@ function transformToAssocArray( prmstr ) {
   }
   return params;
 }
+
 

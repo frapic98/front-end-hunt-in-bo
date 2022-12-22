@@ -28,9 +28,11 @@ $(document).ready(function() {
             headers: {"x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
             success: function (nutenti){
                 document.getElementById("nutenti").innerHTML = nutenti.length;
+
                 //document.getElementById("spanne").innerHTML = "cavallo";
             }
         });
+
 
 
         $.ajax
@@ -42,6 +44,37 @@ $(document).ready(function() {
             success: function (npoi){
                 console.log(npoi);
                 document.getElementById("npoi").innerHTML = npoi.length;
+                //count the number of each category
+                var nfontanelle = 0;
+                var npanchine = 0;
+                var nbagni = 0;
+                var nparchi = 0;
+                var ncestini = 0;
+                var ndefribillatori= 0;
+                var naltro = 0;
+                for (var i = 0; i < npoi.length; i++) {
+                    var obj = npoi[i];
+                    if (obj.category == 1) {
+                        nfontanelle++;
+                    }
+                    else if (obj.category == 2) {
+                        npanchine++;
+                    }
+                    else if (obj.category == 3) {
+                        nbagni++;
+                    }
+                    else if (obj.category == 4) {
+                        nparchi++;
+                    }
+                    else if (obj.category == 5) {
+                        ncestini++;
+                    }
+                    else if (obj.category == 6) {
+                        ndefribillatori++;
+                    }
+                }
+                console.log(nfontanelle);
+                
             }
         });
       
@@ -91,3 +124,9 @@ $(document).ready(function() {
         });*/
 
 });
+
+
+function logout() {
+    localStorage.removeItem("jwt");
+    window.location.href = './login.html'
+}

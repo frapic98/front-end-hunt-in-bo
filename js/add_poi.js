@@ -130,3 +130,9 @@ document.getElementById("Annulla").onclick = function () {
   document.getElementById("form_poi").reset();
   document.getElementById("tag_form").reset();
 };
+
+function logout() {
+  localStorage.removeItem("jwt");
+  window.location.href = './login.html'
+}
+
