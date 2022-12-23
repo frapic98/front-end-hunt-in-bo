@@ -52,6 +52,5 @@ function get_poi(j) {
       geojson.features.push(feature);
 
     }
-    console.log(geojson);
     return geojson;
   }

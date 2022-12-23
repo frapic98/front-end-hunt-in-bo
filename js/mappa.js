@@ -20,14 +20,14 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-        console.log(data);
+        //console.log(data);
         //convert the points on the jsnon file in number
 
 
         return data;
       }
     }).responseText;
-    console.log(url);
+    //console.log(url);
     return JSON.parse(url);
   }
 
@@ -69,7 +69,7 @@
       geojson.features.push(feature);
 
     }
-    console.log(geojson);
+//console.log(geojson);
     return geojson;
   }
 
@@ -178,7 +178,7 @@
       geojson.features.push(feature);
 
     }
-    console.log(geojson);
+    //console.log(geojson);
     return geojson;
   }
 
@@ -292,7 +292,7 @@
   user_check['Santo Stefano']=21;
   user_check['Savena']=26;*/
 
-  console.log(user_check);
+  //console.log(user_check);
 
 
   // Set style function that sets fill color property
@@ -456,7 +456,6 @@
   }
 
   function setDefaultView() {
-    console.log("default");
     map.removeLayer(quartieri);
     map.removeControl(legend);
     map.removeLayer(user_checkin);

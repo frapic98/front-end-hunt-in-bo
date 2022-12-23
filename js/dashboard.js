@@ -48,7 +48,6 @@ $(document).ready(function() {
             dataType: 'json',
             headers: {"x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
             success: function (npoi){
-                console.log(npoi);
                 document.getElementById("npoi").innerHTML = npoi.length;
                 //count the number of each category
                 for (var i = 0; i < npoi.length; i++) {
@@ -83,11 +82,6 @@ $(document).ready(function() {
             }
         
         })
-
-
-    
-
-console.log(nfontanelle);
 
     // CORSI
    /* $.get( "export.geojson")
@@ -144,9 +138,7 @@ function logout() {
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-// Pie Chart Example
-console.log(nfontanelle);
-console.log(npanchine);
+// Pie Chart 
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
@@ -155,7 +147,7 @@ var myPieChart = new Chart(ctx, {
     datasets: [{
       data: [nfontanelle, npanchine, nbagni, nparchi, ncestini, ndefribillatori],
       backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#e74a3b', '#858796', '#f6c23e'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#e74a3b', '#858796', '#f6c23e'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#a13127', '#595a63', '#917223'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
@@ -177,4 +169,3 @@ var myPieChart = new Chart(ctx, {
     cutoutPercentage: 80,
   },
 });
-console.log(myPieChart);

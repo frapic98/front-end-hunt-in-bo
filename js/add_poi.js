@@ -112,13 +112,13 @@ $.ajax({
   headers: {"Content-type": "application/json","accept": "application/json","accept": "*/*","x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
   success: function (data, status, xhr) {
     //show a console log with the response
-    console.log(data);
+    //console.log(data);
     apriPannello("Successo", "Punto inserito correttamente");
     document.getElementById("form_poi").reset();
     document.getElementById("tag_form").reset();
       },
   error: function (jqXhr, textStatus, errorMessage) {
-    console.log('Error' + errorMessage);
+    //console.log('Error' + errorMessage);
     apriPannello("Errore", "Qualcosa è andato storto");
    
     
