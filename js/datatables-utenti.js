@@ -3,7 +3,7 @@ $(document).ready(function() {
 
    var params = getSearchParameters();
 
-    if(params.typeOp == "Salva")
+    /*if(params.typeOp == "Salva")
     {
         console.log(params);
         $.ajax({
@@ -36,14 +36,14 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            data:(
+            data:
                 { 
                     "username": params.username,
                     "email" : params.email,
                     "password": params.password,
                     "bio": params.bio
                 }
-            ),
+            ,
             url: 'https://hunt-in-bo.herokuapp.com/user',
             headers: {"accept": "application/json", "Content-Type": "application/json"},
             success: function (obj, textstatus) {
@@ -58,9 +58,9 @@ $(document).ready(function() {
         });
     }
     else
-    {
+    {*/
         getData();
-    }
+   // }
 
     
 });
