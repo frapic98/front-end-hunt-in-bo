@@ -22,17 +22,20 @@ function login() {
       delete objects["password"];
       delete objects["email"];
       delete objects["bio"];
-      delete objects["id"];
 
       localStorage.setItem("jwt", JSON.stringify(objects));
 
-
+      if (objects["id"] == 1) {
       //console.log(localStorage.getItem(jwt));
-      window.location.href = './index.html'
-      console.log((JSON.parse(localStorage.getItem(jwt))).token);
-      console.log((JSON.parse(localStorage.getItem(jwt))).username);
+        window.location.href = './index.html'
+        console.log((JSON.parse(localStorage.getItem(jwt))).token);
+        console.log((JSON.parse(localStorage.getItem(jwt))).username);
       
-      } 
+      }
+      else {
+        apriPannello("Errore", "Credenziali errate");
+      }
+    }
       else if(this.readyState == 4 && this.status == 400) {
 
         apriPannello("Errore", "Credenziali errate");

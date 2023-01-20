@@ -1,7 +1,4 @@
-<?php
-    $error = (isset($_GET['error'])) ? $_GET['error'] : false;
-    $insert= (isset($_GET['insert'])) ? $_GET['insert'] : false;
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,11 +78,20 @@
           <i class="fas fa-map"></i>
           <span>Mappa</span></a>
       </li>
+      <div class="sidebar-heading">
+        Gestisti Poi
+      </div>
       <li class="nav-item active">
         <a class="nav-link" href="aggiungi_poi.html">
           <i class="fas fa-map-pin"></i>
           <span>Aggiungi Poi</span></a>
       </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="importa_poi.html">
+          <i class="fas fa-wrench"></i>
+          <span>Importa Poi</span></a>
+      </li>
+      
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

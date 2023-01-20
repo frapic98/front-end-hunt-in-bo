@@ -1,12 +1,11 @@
-
-  var mergedObject = {
-    "k": 1,
+  /*var mergedObject = {
+    "k": 3,
     "start_date": "2022-11-10",
-    "end_date": "2022-12-20"
-  };
+    "end_date": "2023-1-18"
+  };*/
 
 
-  function get_cluster() {
+  /*function get_cluster() {
     var url = $.ajax({
       url: "https://hunt-in-bo.herokuapp.com/statistics/userClustering",
       type: "POST",
@@ -20,7 +19,7 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-        //console.log(data);
+        console.log(data);
         //convert the points on the jsnon file in number
 
 
@@ -29,7 +28,7 @@
     }).responseText;
     //console.log(url);
     return JSON.parse(url);
-  }
+  }*/
 
 
   //convert the points on number and put them on the map
@@ -46,35 +45,14 @@
   }
 
 
-  var conver = convert_points(get_cluster());
+  //var conver = convert_points(get_cluster());
+  //var conver = get_cluster();
 
 
+ 
 
-  //convert lat and long to float
-  function cluster() {
-
-    //convert url1 to geojson
-    var geojson = {
-      "type": "FeatureCollection",
-      "features": []
-    };
-    for (var i = 0; i < conver.length; i++) {
-      var feature = {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [conver[i][1], conver[i][0]]
-        }
-      };
-      geojson.features.push(feature);
-
-    }
-//console.log(geojson);
-    return geojson;
-  }
-
-  var clust_user = cluster();
-
+  //var clust_user = cluster();
+  //console.log(clust_user);
 
   //function to get the number of poi for the neighborhood
 
@@ -297,7 +275,7 @@
 
   // Set style function that sets fill color property
   var fontaIcon = L.icon({
-    iconUrl: 'water.png',
+    iconUrl: 'css/icon/water.png',
     iconSize: [25, 20]
   });
 
@@ -307,7 +285,7 @@
   //END Layer1
 
   var benchIcon = L.icon({
-    iconUrl: 'bench.png',
+    iconUrl: 'css/icon/bench.png',
     iconSize: [25, 20]
   });
 
@@ -316,46 +294,65 @@
 
 
   var wcIcon = L.icon({
-    iconUrl: 'wc.png',
+    iconUrl: 'css/icon/wc.png',
     iconSize: [25, 20]
   });
   var wc = create_marker(wcIcon);
   wc.addData(get_poi(3));
 
   var parkIcon = L.icon({
-    iconUrl: 'trees.png',
+    iconUrl: 'css/icon/trees.png',
     iconSize: [25, 20]
   });
   var park = create_marker(parkIcon);
   park.addData(get_poi(4));
 
   var binIcon = L.icon({
-    iconUrl: 'bin.png',
+    iconUrl: 'css/icon/bin.png',
     iconSize: [25, 20]
   });
   var bin = create_marker(binIcon);
   bin.addData(get_poi(5));
 
   var defiIcon = L.icon({
-    iconUrl: 'defi.png',
+    iconUrl: 'css/icon/defi.png',
     iconSize: [25, 20]
   });
   var defibrillatori = create_marker(defiIcon);
   defibrillatori.addData(get_poi(6));
 
+
+function getColoree(status) {
+  return  status == 0  ? 'red' :
+          status == 1  ? 'green' :
+          status == 2  ? 'orange' :
+          status == 3  ? 'blue' :
+          status == 4   ? 'pink' :
+                                     'purple';
+  }
+
   var valol = L.geoJson(get_poi(0), {
     pointToLayer: function (feature, latlng) {
-      var marker = L.marker(latlng);
+      var marker = L.marker(latlng)
       return marker;
     }
   });
 
-  var valol2 = L.geoJson(cluster(), {
+
+  
+
+//clust_user.features[0].geometry.coordinates[1]= 44.49182055695212;
+//clust_user.features[0].geometry.coordinates[0]= 11.336009945850666
+
+ /* var valol2 = L.geoJson(clust_user, {
     pointToLayer: function (feature, latlng) {
-      var marker = L.marker(latlng);
+      console.log(feature)
+      console.log(latlng)
+      var marker = L.marker(latlng,{icon:L.AwesomeMarkers.icon({     
+        markerColor: getColoree(feature.properties.k)})})
       return marker;
     }
-  });
+  })*/
   //print on map the  quartieri.gejson file
 
   function getColor(d) {
@@ -442,6 +439,9 @@
   function addQuart() {
     map.removeLayer(user_checkin);
     map.removeControl(legenduser);
+    if (valol3 != undefined) {
+      map.removeLayer(valol3);
+    }
     quartieri.addTo(map);
 
     legend.addTo(map);
@@ -450,6 +450,9 @@
   function addCheckIn() {
     map.removeLayer(quartieri);
     map.removeControl(legend);
+    if (valol3 != undefined) {
+      map.removeLayer(valol3);
+    }
     user_checkin.addTo(map);
 
     legenduser.addTo(map);
@@ -459,7 +462,11 @@
     map.removeLayer(quartieri);
     map.removeControl(legend);
     map.removeLayer(user_checkin);
+    if (valol3 != undefined) {
+    map.removeLayer(valol3);
+  }
     map.removeControl(legenduser);
+    
   }
 
   //
@@ -481,7 +488,7 @@
     'Defibrillatore': defibrillatori,
     'Heatmap': heat,
     'Tutti i POI': valol,
-    'Tutti gli utenti': valol2,
+    //'Tutti gli utenti': valol2,
   };
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -537,3 +544,188 @@ function logout() {
   localStorage.removeItem("jwt");
   window.location.href = './login.html'
 }
+
+var calendar = flatpickr("#datepicker", {
+
+  mode: "range",
+  dateFormat: "Y-m-d",
+  minDate: "2022-12-01",
+  maxDate: "2023-01-20",
+
+
+});
+
+
+
+
+function apriPannello()
+{
+  
+ // let msg = "data";
+  let titolo = "User Clustering";
+
+  modal = document.getElementById("pannello");
+  title = document.getElementById("title");
+  modalText = document.getElementById("modal-text");
+  //modalText.innerHTML = msg;
+  title.innerHTML = titolo;
+  closeSpan = document.getElementById("close");
+
+
+  const value = document.querySelector("#value")
+  const input = document.querySelector("#slideK")
+  value.textContent = input.value
+  input.addEventListener("input", (event) => {
+  value.textContent = event.target.value
+ 
+})
+
+  modal.style.display = "block";
+  closeSpan.onclick = function() {
+      modal.style.display = "none";
+
+  }
+
+  
+  window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+  }
+}
+
+
+
+
+ function Clustering(){
+  console.log(calendar)
+  console.log(calendar.selectedDates)
+  var start_date = calendar.selectedDates[0].toISOString().slice(0,10);
+  var end_date = calendar.selectedDates[1].toISOString().slice(0,10);
+  var k = document.getElementById("slideK").value;
+ 
+  
+  console.log(start_date);
+  console.log(end_date);
+  
+  var mergedObject = {
+    "k": k,
+    "start_date": start_date,
+    "end_date": end_date
+ }
+
+ console.log(mergedObject)
+
+ var url = $.ajax({
+  url: "https://hunt-in-bo.herokuapp.com/statistics/userClustering",
+  type: "POST",
+  dataType: "text",
+  data: JSON.stringify(mergedObject),
+  global: false,
+  async: false,
+  headers: {
+    "Content-type": "application/json",
+    "accept": "application/json",
+    "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
+  },
+  success: function (data) {
+    console.log(data);
+    //convert the points on the jsnon file in number
+
+
+    return data;
+  }
+}).responseText;
+//console.log(url);
+return JSON.parse(url);
+
+}
+
+ //convert lat and long to float
+ function cluster() {
+  conver=Clustering();
+  //console.log(conver)
+  //console.log(conver.length);
+  //console.log(conver[0].points.length);
+  //convert url1 to geojson
+  var geojson = {
+    "type": "FeatureCollection",
+    "features": []
+  };
+  for (var i = 0; i < conver.length; i++) {
+    //assign a color between 'red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpurple', 'cadetblue' to the cluster
+    var color = "";
+    if (i == 0) {
+      color = "red";
+    }
+    else if (i == 1) {
+      color = "gray";
+    }
+    else if (i == 2) {
+      color = "orange";
+    } 
+    else if (i == 3) {
+      color = "green";
+    }
+    else if (i == 4) {
+      color = "purple";
+    }
+    else if (i == 5) {
+      color = "blue";
+    }
+    else if (i == 6) {
+      color = "cadetblue";
+    }
+    else if (i == 7) {
+      color = "darkpurple";
+    }
+    else if (i == 8) {
+      color = "cadetblue";
+    }
+    else if (i == 9) {
+      color = "darkblue";
+    }
+    else if (i == 10) {
+      color = "black";
+    }
+    for (var j = 0; j < conver[i].points.length; j++) {
+      var feature = {
+        "type": "Feature",
+        "geometry": {
+          
+          "type": "Point",
+          "coordinates": [conver[i].points[j][1], conver[i].points[j][0]],
+          
+        },
+        "properties": {
+          "color": color,
+          "k": i
+        }
+      };
+      geojson.features.push(feature);
+
+  }
+}
+//console.log(geojson);
+
+  return geojson;
+}
+
+var valol3;
+function btnCluster(){
+  if (valol3 != undefined) {
+    map.removeLayer(valol3);
+  }
+valol3 = L.geoJson(cluster(), {
+  pointToLayer: function (feature, latlng) {
+   // console.log(feature)
+    //console.log(latlng)
+    var marker = L.marker(latlng,{icon:L.AwesomeMarkers.icon({     
+      markerColor: feature.properties.color})})
+    return marker;
+  }
+}).addTo(map);
+
+
+}
+

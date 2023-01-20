@@ -21,7 +21,10 @@
   <link href="css/sb-admin-2.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+  <link rel="stylesheet" href="css\leaflet.awesome-markers.css">
   <style>
+  
     .legend {
       line-height: 30px;
       color: #555;
@@ -38,16 +41,15 @@
     }
 
     #btn_grou {
-      position: absolute;
-      top: 616px;
-      left: 248px;
-      padding: 10px;
+      position: relative;
+      bottom: 29px;
+      
       z-index: 400;
     }
   </style>
 </head>
 
-<body id="page-top">
+<body id="page-top"  >
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -102,10 +104,18 @@
           <i class="fas fa-map"></i>
           <span>Mappa</span></a>
       </li>
-      <li class="nav-item ">
+      <div class="sidebar-heading">
+        Gestisti Poi
+      </div>
+      <li class="nav-item">
         <a class="nav-link" href="aggiungi_poi.html">
           <i class="fas fa-map-pin"></i>
           <span>Aggiungi Poi</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="importa_poi.html">
+          <i class="fas fa-wrench"></i>
+          <span>Importa Poi</span></a>
       </li>
 
       <!-- Divider -->
@@ -200,13 +210,14 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800"></h1>
-          <div id="map" style="height: 570px;"></div>
+          <div id="map" style="height: 72vh;"> </div>
           <!-- /.container-fluid -->
-          <div id="btn_grou">
+          <div id="btn_grou" >
             <button id="refreshButton" onclick="addQuart()">Densità POI</button>
             <button id="userCheckIn" onclick="addCheckIn()">CheckIn Utenti</button>
             <button id="delaultView" onclick="setDefaultView()">Default</button>
-          </div>
+            <button id="userClustering" onclick="apriPannello()">User Clustering</button>
+          
         </div>
         <!-- End of Main Content -->
 
@@ -251,7 +262,27 @@
       </div>
     </div>
 
+<!-- The Modal -->
+<div id="pannello" class="modal">
 
+  <div class="modal-content card shadow mb-4 col-6">
+  <div class="card-header py-3">
+      <h6 id="title" class="m-0 font-weight-bold text-primary modal-title"></h6><span id="close" class="close">&times;</span>
+  </div>
+  <div class="card-body">
+    
+    <input style='width:40%' id="datepicker" class="flatpickr flatpickr-input" type="text" placeholder="Seleziona data inizio e data fine" readonly="readonly">
+    <div style="display:inline; position:absolute; right: 5%;">
+    <input id="slideK" type="range" min="0" max="10" step="1" />
+    <label for="slideK">Valore K: </label> 
+    <output id="value"></output>
+  </div>
+  <div  style="text-align: center;">
+    <button id="btnCluster" class="btn btn-primary" onclick="btnCluster()" position>Cluster</button>
+  </div>
+</div>
+  </div>
+  </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="lib/jquery/jquery.min.js"></script>
@@ -274,8 +305,12 @@
     
 
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
-    <script src="leaflet-heat.js"></script>
+    <script src="lib/leaflet-heat.js"></script> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="lib/leaflet.awesome-markers.js"></script>
+    <script src="lib/leaflet.awesome-markers.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="js/mappa.js"></script>
     <!--<script> 
     var fontan;
@@ -302,7 +337,7 @@
     <script>
       function logout() {
         localStorage.removeItem("jwt");
-        window.location.href = './login.php'
+        window.location.href = './login.html'
       }
     </script>
 

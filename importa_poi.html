@@ -17,7 +17,7 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css">
 </head>
 
 <body id="page-top">
@@ -29,15 +29,15 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon">
           <i class="fas fa-map-marker-alt"></i>
         </div>
         <div class="sidebar-brand-text mx-3">BoloPoi</div>
       </a>
 
-       <!-- Divider -->
-       <hr class="sidebar-divider my-0">
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="utenti.html">
           <i class="fas fa-users"></i>
           <span> Lista utenti</span></a>
@@ -65,14 +65,15 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+
       <!-- Heading -->
       <div class="sidebar-heading">
           Navigazione mappa
         </div>
       <!-- Nav Item - associazioni -->
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="mappa.html">
-        <i class="fas fa-map"></i>
+          <i class="fas fa-map"></i>
           <span>Mappa</span></a>
       </li>
       <div class="sidebar-heading">
@@ -83,7 +84,7 @@
           <i class="fas fa-map-pin"></i>
           <span>Aggiungi Poi</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="importa_poi.html">
           <i class="fas fa-wrench"></i>
           <span>Importa Poi</span></a>
@@ -114,18 +115,6 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -153,7 +142,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">alepistola</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="spanne"></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -187,52 +176,76 @@
         <div class="container-fluid">
 
             <!-- Page Heading -->
-			<h1 class="h3 mb-2 text-gray-800">Modifica i dati dell'utente: </h1><h1 id="titolo" class="h3 mb-2 text-primary"></h1>
-			<p class="mb-4">Modifica i valori qui sotto riportati e premi "salva" per confermare l'operazione, "annulla" per tornare indietro</p>
-        
-            <form class="user" action="utenti.html" method="get">
-
-                <div class="form-group row">
-                    <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="email" class="form-control form-control-user"  id="emailText" name="email" value="">
-                        <small class="form-text text-muted ml-4">Email</small>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id="usernameText" name="username" value="">
-                        <small class="form-text text-muted ml-4">Username</small>
-                    </div>
+          <h1 class="h3 mb-2 text-gray-800">Aggiorna i dati dei Point of Interest </h1>
+          <p class="mb-4">Seleziona se vuoi aggiornare i POI OpenStreetMap o se vuoi importare i dati per i quartieri</p>
+          <div class="form-group row">   
+            <div class="col-sm-5">
+              
+          
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header">
+                Aggiorna i dati dei POI
+              </div>
+              <div class="card-body">
+                <p class="card-text">Aggiorna i dati spaziali presenti nel database tramite il servizio web OverpassTurbo, uno strumento 
+                  di data mining per OpenStreetMap. I punti inseriti manualmente tramite
+                   l'apposita  <a href="aggiungi_poi.html"> pagina</a> non verranno alterati</p>
+                  </p>
+              </div>
+            </div>
+            <div class="my-2"></div>
+            <a href="#" id="aggiorna_poi" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-map-pin"></i>
+                </span>
+                <span class="text">Aggiorna i dati dei POI</span>
+            </a>
+            </div>
+            </div>
+              
+            <div class="col-sm-5">
+              <div class="card">
+                <div class="card-header">
+                  Importa i dati dei Quartieri
                 </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-4 mb-3 mb-sm-0">
-                        <input type="password" class="form-control form-control-user" id="passwordText" name="password" value="">
-                        <small class="form-text text-muted ml-4">Password</small>
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-user" id= "bioText" name="bio" value="">
-                        <small class="form-text text-muted ml-4">Bio</small>
-                    </div>
+                <div class="card-body">
+                  <p class="card-text"> Importa i dati spaziali relativi ai quartieri di Bologna nel database. Puoi vedere graficamente i 
+                    quartieri dalla pagina <a href="mappa.html"> mappa</a> tramite i pulsanti per mostrare 
+                    la Densità POI e la Densità CheckIn Utenti disponibili nell'interfaccia
+                  </p>
+                </p>
                 </div>
-
-                <input type="hidden" name="vUsername" value="" id="vUsername" />
-                <div class="mb-2 mt-4 row col-sm-12 col-12 col-md-12 col-lg-6 col-xl-6" style="float:right">
-                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Annulla">
-                    <input type="submit" class="btn btn-primary btn-user btn-block bottoni-update" name="typeOp" value="Salva">
-                </div>
-            </form>
-                
-      
+              </div>
+          
+              <div class="my-2"></div>
+          <a href="#" id="importa_quart" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-map"></i>
+                                        </span>
+                                        <span class="text">Importa i dati dei Quartieri</span>
+                                    </a>
         </div>
-              <!-- /.container-fluid -->
-      
         </div>
+        </div>
+        </div>
+       
             <!-- End of Main Content -->
+          <div id="pannello" class="modal">
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+            <div class="modal-content card shadow mb-4 col-6">
+              <div class="card-header py-3">
+                <h6 id="title" class="m-0 font-weight-bold text-primary modal-title"></h6><span id="close" class="close">&times;</span>
+              </div>
+            <div id="modal-text" class="card-body"> 
+            </div>
+            </div>
+          </div>
+   <!-- Footer -->
+   <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; BoloPoi 2020</span>
+            <span>Copyright &copy; BoloPoi 2022</span>
           </div>
         </div>
       </footer>
@@ -249,19 +262,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- The Modal -->
-  <div id="pannello" class="modal">
-
-    <div class="modal-content card shadow mb-4 col-6">
-      <div class="card-header py-3">
-        <h6 id="title" class="m-0 font-weight-bold text-primary modal-title"></h6><span id="close" class="close">&times;</span>
-      </div>
-      <div id="modal-text" class="card-body"> 
-      </div>
-    </div>
-  </div>
-
-
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -275,11 +275,15 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
+          <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="logout()">Logout</button>
         </div>
       </div>
     </div>
   </div>
+
+
+<script src="js/importa_poi.js"> </script> 
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="lib/jquery/jquery.min.js"></script>
@@ -293,10 +297,17 @@
 
   <!-- Page level plugins -->
   <script src="js/jquery.redirect.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="js/utente.js"></script>
-
-</body>
+  
+  
+  <script>
+    document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;
+    //add a map with a draggable marker
+   
+    </script>
+    
+    
+  </body>
 
 </html>
