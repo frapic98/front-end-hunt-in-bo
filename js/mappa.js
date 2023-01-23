@@ -587,6 +587,8 @@ function apriPannello()
   }
 
   
+
+  
   window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
@@ -726,6 +728,7 @@ valol3 = L.geoJson(cluster(), {
   }
 }).addTo(map);
 
-
+modal = document.getElementById("pannello");
+modal.style.display = "none";
 }
 

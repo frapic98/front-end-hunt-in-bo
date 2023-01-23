@@ -18,6 +18,35 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css">
+
+  <style>
+  
+  #loading-circle {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80px;
+  height: 80px;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  animation: spin 0.6s ease-in infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+  </style>
+
 </head>
 
 <body id="page-top">
@@ -183,6 +212,7 @@
               
           
           <div id="accordion">
+            
             <div class="card">
               <div class="card-header">
                 Aggiorna i dati dei POI
@@ -193,7 +223,9 @@
                    l'apposita  <a href="aggiungi_poi.html"> pagina</a> non verranno alterati</p>
                   </p>
               </div>
+              
             </div>
+            
             <div class="my-2"></div>
             <a href="#" id="aggiorna_poi" class="btn btn-success btn-icon-split">
                 <span class="icon text-white-50">
@@ -201,9 +233,9 @@
                 </span>
                 <span class="text">Aggiorna i dati dei POI</span>
             </a>
+            
             </div>
-            </div>
-              
+          </div>
             <div class="col-sm-5">
               <div class="card">
                 <div class="card-header">
@@ -226,7 +258,7 @@
                                         <span class="text">Importa i dati dei Quartieri</span>
                                     </a>
         </div>
-        </div>
+          </div>
         </div>
         </div>
        
@@ -253,7 +285,7 @@
 
     </div>
     <!-- End of Content Wrapper -->
-
+    <div id="loading-circle"></div>
   </div>
   <!-- End of Page Wrapper -->
 
@@ -282,7 +314,7 @@
   </div>
 
 
-<script src="js/importa_poi.js"> </script> 
+
 
 
   <!-- Bootstrap core JavaScript-->
@@ -299,7 +331,7 @@
   <script src="js/jquery.redirect.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
 
-  
+  <script src="js/importa_poi.js"> </script> 
   
   <script>
     document.getElementById("spanne").innerHTML = (JSON.parse(localStorage.getItem("jwt"))).username;

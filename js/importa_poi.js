@@ -24,11 +24,53 @@ function apriPannello(data1, data)
 }
 
 document.getElementById("aggiorna_poi").onclick = function () {
-    apriPannello("Successo", "I dati sono stati aggiornati correttamente");
-  };
+$(document).ready(function() {
+    const card = $("#wrapper");
+    const loadingCircle = $("#loading-circle");
+    
+
+    //change the css display property of the accordion element to block
+    
+    card.css("background-color", "black");
+    card.css("opacity", "0.6");
+    loadingCircle.css("display", "block");
+    card.css("pointer-events", "none");
+
+  setTimeout(function() {
+    // re-enable the form
+    card.css("background-color", "none");
+    card.css("opacity", "1");
+    card.css("pointer-events", "auto");
+    loadingCircle.css("display", "none");
+    apriPannello("Successo", "I dati dei quartieri sono stati importati correttamente");
+
+  }, 3000);
+});
+};
 
 document.getElementById("importa_quart").onclick = function () {
-    apriPannello("Successo", "I dati dei quartieri sono stati importati correttamente");
+    $(document).ready(function() {
+        const card = $("#wrapper");
+        const loadingCircle = $("#loading-circle");
+        
+    
+        //change the css display property of the accordion element to block
+        
+        card.css("background-color", "black");
+        card.css("opacity", "0.6");
+        loadingCircle.css("display", "block");
+        card.css("pointer-events", "none");
+    
+      setTimeout(function() {
+        card.css("background-color", "none");
+        card.css("opacity", "1");
+        card.css("pointer-events", "auto");
+        loadingCircle.css("display", "none");
+        apriPannello("Successo", "I dati dei quartieri sono stati importati correttamente");
+    
+      }, 3000);
+    });
+    
   };
   
   function logout() {
