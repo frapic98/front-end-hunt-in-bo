@@ -1,3 +1,8 @@
+var jwt = localStorage.getItem("jwt");
+if (jwt == null) {
+    window.location.href = './login.html'
+}
+
 function apriPannello(data1, data,response)
 {
   let msg = data;

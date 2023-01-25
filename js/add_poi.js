@@ -1,3 +1,7 @@
+var jwt = localStorage.getItem("jwt");
+if (jwt == null) {
+    window.location.href = './login.html'
+}
 //function to add a new tag and value
 addTag.onclick = function () {
   var newTag = document.createElement("input");
