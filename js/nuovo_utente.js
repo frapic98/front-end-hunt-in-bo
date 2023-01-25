@@ -58,3 +58,9 @@ document.getElementById("Inserisci").onclick = function () {
   
   });
 }
+
+
+function logout() {
+  localStorage.removeItem("jwt");
+  window.location.href = './login.html'
+}

@@ -1,8 +1,4 @@
-  /*var mergedObject = {
-    "k": 3,
-    "start_date": "2022-11-10",
-    "end_date": "2023-1-18"
-  };*/
+  
 
 
   /*function get_cluster() {
@@ -59,7 +55,8 @@
 
   //get_cluster();
 
-  function get_poi_number() {
+  function get_poi_number_density() {
+    var datas
     var url = $.ajax({
       url: "https://hunt-in-bo.herokuapp.com/statistics/poiDensity",
       type: "GET",
@@ -72,12 +69,71 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-        // console.log(data);
+         console.log(data);
+         datas=data;
         return data;
+
       }
     }).responseText;
+    console.log(url);
+    console.log(datas);
+    //convert to key value pair
+    var poi_number = {};
+    for (var i = 0; i < datas.length; i++) {
+      poi_number[datas[i].name] = datas[i].density.toString().slice(0, 5);
+    }
 
-    return url;
+
+
+
+
+    console.log(poi_number);
+    //convert poi_number to Text
+    console.log(JSON.stringify(poi_number));
+    return JSON.stringify(poi_number);
+  }
+
+
+     
+  function get_poi_number_normalized() {
+    var datas
+    var url = $.ajax({
+      url: "https://hunt-in-bo.herokuapp.com/statistics/poiDensity",
+      type: "GET",
+      dataType: "json",
+      global: false,
+      async: false,
+      headers: {
+        "Content-type": "application/json",
+        "accept": "application/json",
+        "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
+      },
+      success: function (data) {
+         console.log(data);
+         datas=data;
+        return data;
+
+      }
+    }).responseText;
+    console.log(url);
+    console.log(datas);
+    //convert to key value pair
+    var poi_number = {};
+    for (var i = 0; i < datas.length; i++) {
+      
+
+      poi_number[datas[i].name] = datas[i].normalized.toString().slice(0, 5);
+      //slice the number to 2 decimal and convert to string
+
+
+
+
+    }
+
+    console.log(poi_number);
+    //convert poi_number to Text
+    console.log(JSON.stringify(poi_number));
+    return JSON.stringify(poi_number);
   }
 
   function get_user_number() {
@@ -93,13 +149,65 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-        // console.log(data);
+         console.log(data);
         return data;
       }
     }).responseText;
-
+    console.log(url);
     return url;
   }
+
+
+  function get_requestedPoi(){
+ 
+    var url = $.ajax({
+      url: "https://hunt-in-bo.herokuapp.com/requestedPoi",
+      type: "GET",
+      dataType: "json",
+      global: false,
+      async: false,
+      headers: {
+        "Content-type": "application/json",
+        "accept": "application/json",
+        "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
+      },
+      success: function (data) {
+        //console.log(JSON.stringify(data));
+
+        return data;
+
+      }
+    }).responseText;
+
+    //console.log(url1);    
+    url = JSON.parse(url);
+
+    //convert lat and long to float
+
+
+    //convert url1 to geojson
+    var geojson = {
+      "type": "FeatureCollection",
+      "features": []
+    };
+    for (var i = 0; i < url.length; i++) {
+      var obj = url[i];
+      var feature = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [parseFloat(obj.long), parseFloat(obj.lat)]
+        },
+        "id": obj.idPoi,
+      };
+      geojson.features.push(feature);
+
+    }
+    //console.log(geojson);
+    return geojson;
+  }
+
+
 
 
  function get_poi(j) {
@@ -258,9 +366,9 @@
 
   }
   //commentato
-  valore = get_poi_number();
-
-  valore = JSON.parse(valore);
+  densityPoi =JSON.parse( get_poi_number_density());
+  densityPoiNormalized = JSON.parse(get_poi_number_normalized());
+  //valore = JSON.parse(valore);
 
   user_check = get_user_number();
   user_check = JSON.parse(user_check);
@@ -338,8 +446,14 @@ function getColoree(status) {
     }
   });
 
-
+  var utenti = L.geoJson(get_requestedPoi(), {
+    pointToLayer: function (feature, latlng) {
+      var marker = L.marker(latlng)
+      return marker;
+    }
+  });
   
+
 
 //clust_user.features[0].geometry.coordinates[1]= 44.49182055695212;
 //clust_user.features[0].geometry.coordinates[0]= 11.336009945850666
@@ -356,11 +470,12 @@ function getColoree(status) {
   //print on map the  quartieri.gejson file
 
   function getColor(d) {
-    return d > 250 ? '#800026' :
-      d > 200 ? '#BD0026' :
-        d > 150 ? '#E31A1C' :
-          d > 100 ? '#FC4E2A' :
-            d > 50 ? '#FD8D3C' :
+    
+    return d > 0.999 ? '#30051e' :
+      d > 0.80 ? '#800026' :
+        d > 0.60 ? '#BD0026' :
+          d > 0.40 ? '#FC4E2A' :
+            d > 0.20 ? '#FD8D3C' :
               '#FED976';
 
   }
@@ -379,8 +494,8 @@ function getColoree(status) {
       return { color: feature.properties.color };
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup("<b>" + feature.properties.nomequart + "</b>" + " ha " + valore[feature.properties.nomequart] + " POI");
-      layer.setStyle({ color: 'white', fillColor: getColor(valore[feature.properties.nomequart]), opacity: 1, fillOpacity: 0.7 });
+      layer.bindPopup("<b>" + feature.properties.nomequart + "</b>" + " ha una densità di POI per KM <sup>2</sup> di " + densityPoi[feature.properties.nomequart] + ', mentre ha una densità normalizzata di ' +densityPoiNormalized[feature.properties.nomequart] );
+      layer.setStyle({ color: 'white', fillColor: getColor(densityPoiNormalized[feature.properties.nomequart]), opacity: 1, fillOpacity: 0.9 });
     }
   });
 
@@ -393,7 +508,7 @@ function getColoree(status) {
     onEachFeature: function (feature, layer) {
       layer.bindPopup("<b>" + feature.properties.nomequart + "</b>" + " ha " + user_check[feature.properties.nomequart] + " utenti che hanno richiesto un POI");
 
-      layer.setStyle({ color: 'white', fillColor: getColorUser(user_check[feature.properties.nomequart]), opacity: 1, fillOpacity: 0.7 });
+      layer.setStyle({ color: 'white', fillColor: getColorUser(user_check[feature.properties.nomequart]), opacity: 1, fillOpacity: 0.87 });
 
     }
   });
@@ -488,7 +603,7 @@ function getColoree(status) {
     'Defibrillatore': defibrillatori,
     'Heatmap': heat,
     'Tutti i POI': valol,
-    //'Tutti gli utenti': valol2,
+    'Tutti gli utenti': utenti,
   };
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -502,16 +617,17 @@ function getColoree(status) {
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, 50, 100, 150, 200, 250],
+      grades = [0, 0.20, 0.40, 0.60, 0.80,1],
 
       labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
-
+      div.innerHTML+='<b>Densità POI Normalizzata</b><br>'
     for (var i = 0; i < grades.length; i++) {
       div.innerHTML +=
-        '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        '<i style="background:' + getColor(grades[i] +0.00001) + '"></i> ' +
+        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '');
+
     }
 
     return div;
@@ -530,7 +646,7 @@ function getColoree(status) {
       labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
-
+    div.innerHTML+='<b>Densità Richieste Utenti</b><br>'
     for (var i = 0; i < grades_user.length; i++) {
       div.innerHTML +=
         '<i style="background:' + getColorUser(grades_user[i] + 1) + '"></i> ' +
