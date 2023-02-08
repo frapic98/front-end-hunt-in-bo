@@ -10,7 +10,7 @@ Il client è stato sviluppato avvalendosi del seguente template bootstrap dispon
 
 Il client è stato sviluppato avvalendosi del template bootstrapSB Admin 2 disponibile
 online adattato poi alle esigenze progettuali.
-Il client web `e stato sviluppato utilizzando javascript, jquery e jquery redirect per ottenere
+Il client web è stato sviluppato utilizzando javascript, jquery e jquery redirect per ottenere
 i dati dal webserver e html, css per creare le pagine web. Per visualizzare i dati, dopo averli
 ottenuti dal webserver attraverso delle API, sono stati gestiti e visualizzati attraverso le
 seguenti librerie: chart.js, datatables. Mentre per quanto riguarda i dati spaziali si `e scelto
@@ -22,7 +22,7 @@ controllare i dati che verranno poi mostrati dall’app mobile.
 L'API raggiungibile dal link nel titolo è composta da 4 endpoint:
 1. *autenticazione*, una semplice pagina di login che una volta inserite le credenziali
 dell’amministratore permette di ottenere il Token con il quale fare richieste API al
-Web server venendo reindirizzato all’interno del portale. Il login `e consentito solo
+Web server venendo reindirizzato all’interno del portale. Il login è consentito solo
 all’amministratore che avr`a un token diverso da quello dei comuni utenti registrati
 tramite l’app.
 

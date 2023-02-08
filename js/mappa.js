@@ -1,32 +1,4 @@
   
-
-
-  /*function get_cluster() {
-    var url = $.ajax({
-      url: "https://hunt-in-bo.herokuapp.com/statistics/userClustering",
-      type: "POST",
-      dataType: "text",
-      data: JSON.stringify(mergedObject),
-      global: false,
-      async: false,
-      headers: {
-        "Content-type": "application/json",
-        "accept": "application/json",
-        "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
-      },
-      success: function (data) {
-        console.log(data);
-        //convert the points on the jsnon file in number
-
-
-        return data;
-      }
-    }).responseText;
-    //console.log(url);
-    return JSON.parse(url);
-  }*/
-
-
   //convert the points on number and put them on the map
   function convert_points(risposta) {
     var points = [];
@@ -40,20 +12,6 @@
     return points;
   }
 
-
-  //var conver = convert_points(get_cluster());
-  //var conver = get_cluster();
-
-
- 
-
-  //var clust_user = cluster();
-  //console.log(clust_user);
-
-  //function to get the number of poi for the neighborhood
-
-
-  //get_cluster();
 
   function get_poi_number_density() {
     var datas
@@ -69,27 +27,17 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-         console.log(data);
          datas=data;
         return data;
 
       }
     }).responseText;
-    console.log(url);
-    console.log(datas);
-    //convert to key value pair
+
     var poi_number = {};
     for (var i = 0; i < datas.length; i++) {
       poi_number[datas[i].name] = datas[i].density.toString().slice(0, 5);
     }
 
-
-
-
-
-    console.log(poi_number);
-    //convert poi_number to Text
-    console.log(JSON.stringify(poi_number));
     return JSON.stringify(poi_number);
   }
 
@@ -109,30 +57,16 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-         console.log(data);
          datas=data;
         return data;
 
       }
     }).responseText;
-    console.log(url);
-    console.log(datas);
-    //convert to key value pair
+
     var poi_number = {};
     for (var i = 0; i < datas.length; i++) {
-      
-
       poi_number[datas[i].name] = datas[i].normalized.toString().slice(0, 5);
-      //slice the number to 2 decimal and convert to string
-
-
-
-
     }
-
-    console.log(poi_number);
-    //convert poi_number to Text
-    console.log(JSON.stringify(poi_number));
     return JSON.stringify(poi_number);
   }
 
@@ -149,11 +83,9 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-         console.log(data);
         return data;
       }
     }).responseText;
-    console.log(url);
     return url;
   }
 
@@ -172,20 +104,14 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-        //console.log(JSON.stringify(data));
-
         return data;
 
       }
     }).responseText;
 
-    //console.log(url1);    
     url = JSON.parse(url);
 
-    //convert lat and long to float
-
-
-    //convert url1 to geojson
+    //convert to geojson
     var geojson = {
       "type": "FeatureCollection",
       "features": []
@@ -203,7 +129,6 @@
       geojson.features.push(feature);
 
     }
-    //console.log(geojson);
     return geojson;
   }
 
@@ -229,20 +154,14 @@
         "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
       },
       success: function (data) {
-        //console.log(JSON.stringify(data));
-
         return data;
 
       }
     }).responseText;
 
-    //console.log(url1);    
+    
     url = JSON.parse(url);
-
-    //convert lat and long to float
-
-
-    //convert url1 to geojson
+    //convert to geojson
     var geojson = {
       "type": "FeatureCollection",
       "features": []
@@ -264,71 +183,12 @@
       geojson.features.push(feature);
 
     }
-    //console.log(geojson);
     return geojson;
   }
 
 
-
-
-
-
-
-  /* j=1;
-   var url1=$.ajax({
-     url: "https://hunt-in-bo.herokuapp.com/poi/"+j,
-     type: "GET",
-     dataType: "json",
-     global: false,
-     async:false,
-     headers: {
-       "Content-type": "application/json",
-       "accept": "application/json",
-       "x-access-token": localStorage.getItem("jwt")
-     },
-     success: function(data) {
-       console.log(JSON.stringify(data));
-
-       return data;
-
-     }
-   }).responseText;
-
-   //console.log(url1);    
-   url1=JSON.parse(url1);
-   
- //convert lat and long to float
-
-
-   //convert url1 to geojson
-   var geojson = {
-     "type": "FeatureCollection",
-     "features": []
-   };
-   for (var i = 0; i < url1.length; i++) {
-     var obj = url1[i];
-     var feature = {
-       "type": "Feature",
-       "geometry": {
-         "type": "Point",
-         "coordinates": [parseFloat(obj.long), parseFloat(obj.lat)]          
-       },
-       "id": obj.id,
-       "properties": {
-         "id": obj.id,
-         "rank": obj.rank   
-       }
-     };
-     geojson.features.push(feature);
-
-   }
-   console.log(geojson);*/
-  //var url1 = 'export.geojson';  
-
   var quart = 'quartieri.geojson';
-
   var map = L.map('map').setView([44.494887, 11.3426163], 14);
-
   var osm = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -348,55 +208,31 @@
     valo = L.geoJson(null, {
       pointToLayer: function (feature, latlng) {
         return L.marker(latlng, { icon: Icon });
-      }/*,  
-        onEachFeature: function (feature, layer) {
-          layer._leaflet_id = feature.id;
-  
-          var popupContent = "<p>The <b>" +
-          feature.properties.emergency + "</b> is here,</br> Street: "+ 
-          feature.properties["addr:street"] +" n° " + feature.properties["addr:housenumber"] + "</p>";
-              
-          if (feature.properties && feature.properties.popupContent) {
-            popupContent += feature.properties.popupContent;
-          }
-            layer.bindPopup(popupContent);			
-  }*/
+      }
     });
     return valo;
 
   }
-  //commentato
+  
   densityPoi =JSON.parse( get_poi_number_density());
   densityPoiNormalized = JSON.parse(get_poi_number_normalized());
   //valore = JSON.parse(valore);
 
   user_check = get_user_number();
   user_check = JSON.parse(user_check);
-  /*user_check['Navile']=6;
-  user_check['Porto - Saragozza']=11;
-  user_check['San Donato - San Vitale']=16;
-  user_check['Santo Stefano']=21;
-  user_check['Savena']=26;*/
-
-  //console.log(user_check);
 
 
-  // Set style function that sets fill color property
   var fontaIcon = L.icon({
     iconUrl: 'css/icon/water.png',
     iconSize: [25, 20]
   });
-
   var fontanelle = create_marker(fontaIcon);
   fontanelle.addData(get_poi(1));
-
-  //END Layer1
 
   var benchIcon = L.icon({
     iconUrl: 'css/icon/bench.png',
     iconSize: [25, 20]
   });
-
   var panchina = create_marker(benchIcon);
   panchina.addData(get_poi(2));
 
@@ -454,21 +290,6 @@ function getColoree(status) {
   });
   
 
-
-//clust_user.features[0].geometry.coordinates[1]= 44.49182055695212;
-//clust_user.features[0].geometry.coordinates[0]= 11.336009945850666
-
- /* var valol2 = L.geoJson(clust_user, {
-    pointToLayer: function (feature, latlng) {
-      console.log(feature)
-      console.log(latlng)
-      var marker = L.marker(latlng,{icon:L.AwesomeMarkers.icon({     
-        markerColor: getColoree(feature.properties.k)})})
-      return marker;
-    }
-  })*/
-  //print on map the  quartieri.gejson file
-
   function getColor(d) {
     
     return d > 0.999 ? '#30051e' :
@@ -518,34 +339,16 @@ function getColoree(status) {
     user_checkin.addData(data3);
   });
 
-  //commentato
   $.getJSON(quart, function (data3) {
     quartieri.addData(data3);
   });
 
-  /*var heat = L.heatLayer([
-   [50.5, 30.5, 0.2], // lat, lng, intensity
-   [50.6, 30.4, 0.5],
-   [50.7, 30.3, 0.2],
- ], {radius: 25}).addTo(map);*/
-
-  //commentato
-
-
-
-
   var pois = get_poi(0);
-
-
-  //var marker=create_marker(L.icon({iconUrl: 'pin.png',iconSize: [20,20]}));
-  //marker.addData(get_poi(0));
-
   var heat;
 
   var locations = pois.features.map(function (rat) {
     var location = rat.geometry.coordinates.reverse();
     location.push(0.5);
-    //console.log(location);
     return location;
   });
 
@@ -584,7 +387,6 @@ function getColoree(status) {
     
   }
 
-  //
   /////////////////////Layer Control  /////////////////////////////////////////////////
 
   var baseMaps = {
@@ -608,19 +410,14 @@ function getColoree(status) {
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-
-
-
+  /////////////////////Legend  /////////////////////////////////////////////////
   var legend = L.control({ position: 'bottomright' });
 
-  //create a legend for the map
   legend.onAdd = function (map) {
-
     var div = L.DomUtil.create('div', 'info legend'),
       grades = [0, 0.20, 0.40, 0.60, 0.80,1],
 
       labels = [];
-
     // loop through our density intervals and generate a label with a colored square for each interval
       div.innerHTML+='<b>Densità POI Normalizzata</b><br>'
     for (var i = 0; i < grades.length; i++) {
@@ -629,7 +426,6 @@ function getColoree(status) {
         grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '');
 
     }
-
     return div;
   };
 
@@ -672,18 +468,12 @@ var calendar = flatpickr("#datepicker", {
 });
 
 
-
-
 function apriPannello()
 {
-  
- // let msg = "data";
   let titolo = "User Clustering";
-
   modal = document.getElementById("pannello");
   title = document.getElementById("title");
   modalText = document.getElementById("modal-text");
-  //modalText.innerHTML = msg;
   title.innerHTML = titolo;
   closeSpan = document.getElementById("close");
 
@@ -701,9 +491,6 @@ function apriPannello()
       modal.style.display = "none";
 
   }
-
-  
-
   
   window.onclick = function(event) {
       if (event.target == modal) {
@@ -713,26 +500,17 @@ function apriPannello()
 }
 
 
-
-
  function Clustering(){
-  console.log(calendar)
-  console.log(calendar.selectedDates)
+ 
   var start_date = calendar.selectedDates[0].toISOString().slice(0,10);
   var end_date = calendar.selectedDates[1].toISOString().slice(0,10);
   var k = document.getElementById("slideK").value;
- 
-  
-  console.log(start_date);
-  console.log(end_date);
   
   var mergedObject = {
     "k": k,
     "start_date": start_date,
     "end_date": end_date
  }
-
- console.log(mergedObject)
 
  var url = $.ajax({
   url: "https://hunt-in-bo.herokuapp.com/statistics/userClustering",
@@ -747,31 +525,20 @@ function apriPannello()
     "x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token
   },
   success: function (data) {
-    console.log(data);
-    //convert the points on the jsnon file in number
-
-
     return data;
   }
 }).responseText;
-//console.log(url);
 return JSON.parse(url);
 
 }
 
- //convert lat and long to float
  function cluster() {
   conver=Clustering();
-  //console.log(conver)
-  //console.log(conver.length);
-  //console.log(conver[0].points.length);
-  //convert url1 to geojson
   var geojson = {
     "type": "FeatureCollection",
     "features": []
   };
   for (var i = 0; i < conver.length; i++) {
-    //assign a color between 'red', 'darkred', 'orange', 'green', 'darkgreen', 'blue', 'purple', 'darkpurple', 'cadetblue' to the cluster
     var color = "";
     if (i == 0) {
       color = "red";
@@ -824,8 +591,6 @@ return JSON.parse(url);
 
   }
 }
-//console.log(geojson);
-
   return geojson;
 }
 
@@ -836,8 +601,6 @@ function btnCluster(){
   }
 valol3 = L.geoJson(cluster(), {
   pointToLayer: function (feature, latlng) {
-   // console.log(feature)
-    //console.log(latlng)
     var marker = L.marker(latlng,{icon:L.AwesomeMarkers.icon({     
       markerColor: feature.properties.color})})
     return marker;
