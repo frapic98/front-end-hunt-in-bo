@@ -8,7 +8,7 @@ Il client è stato sviluppato utilizzando js, jquery e [jquery redirect](https:/
 
 Il client è stato sviluppato avvalendosi del seguente template bootstrap disponibile online [SB-admin 2](https://blackrockdigital.github.io/startbootstrap-sb-admin-2/) adattato poi alle esigenze progettuali.
 
-Il client `e stato sviluppato avvalendosi del template bootstrapSB Admin 2 disponibile
+Il client è stato sviluppato avvalendosi del template bootstrapSB Admin 2 disponibile
 online adattato poi alle esigenze progettuali.
 Il client web `e stato sviluppato utilizzando javascript, jquery e jquery redirect per ottenere
 i dati dal webserver e html, css per creare le pagine web. Per visualizzare i dati, dopo averli
@@ -18,14 +18,43 @@ di utilizzare Leaflet
 
 La struttura si ramifica in diverse pagine, che permettono all’amministratore di gestire e
 controllare i dati che verranno poi mostrati dall’app mobile.
-Il cliente web `e composto da 6 pagine:
-1.autenticazione, una semplice pagina di login che una volta inserite le credenziali
+
+L'API raggiungibile dal link nel titolo è composta da 4 endpoint:
+1. *autenticazione*, una semplice pagina di login che una volta inserite le credenziali
 dell’amministratore permette di ottenere il Token con il quale fare richieste API al
 Web server venendo reindirizzato all’interno del portale. Il login `e consentito solo
 all’amministratore che avr`a un token diverso da quello dei comuni utenti registrati
 tramite l’app.
-2. [chart.js](https://www.chartjs.org/): utilizzato per creare la progress bar nella dashboard.
-3. [datatables.net](https://datatables.net/): utilizzato per mostrare i dati e popolare le tabelle.
+
+2. *dashboard*, la pagina iniziale utile per avere una visione rapida dei dati presenti. Essendo la pagina amministratore è importante avere la conoscenza numerica di quanti
+utenti e quanti POI ci sono; quindi questi due valori sono i primi a essere visualizzati
+con due card container. Per racchiudere in maniera riassuntiva i dati spaziali relativi
+ai vari POI, è presente una semplice mini-mappa priva della possibilit`a di personalizzazione che mostra tutti i Point of Interest distribuiti nell’area metropolitana di
+Bologna. Attraverso un grafico infine è possibile vedere non solo la distribuzione di
+ogni categoria sul totale, ma anche il numero esatto di Poi per tipologia
+
+3. *lista utenti* con l’elenco di tutti gli utenti registrati mostrati in una o più tabelle
+in base al numero di utenti registrati. I dati visualizzati possono essere filtrati
+con l’utilizzo della barra di ricerca, ed inoltre possibile aggiungere un nuovo utente
+tramite un semplice form
+
+4. *mappa*, la pagina che permette la visualizzazione grafica di tutti i dati con ampi margini di personalizzazione. Dal menù a tendina a lato si può scegliere quindi, di mostrare tutti i POI, oppure selezionare solo alcune categorie. Attraverso l'uso di diversi bottoni si può abilitare la visualizzazione dei quartieri di Bologna in base alla densità di Poi presenti o al numero di richieste fatte dagli utenti. E' possibile filtrare le richieste fatte dagli utenti al servizio di raccomandazione, specificando un determinato periodo temporale con data di inizio e data di fine, e raggruppandole successivamente in un certo numero di cluster a seconda del valore scelto
+
+5. *aggiungi POI*, per aggiungere manualmente un punto di interesse relativo ad una
+della tipologie note attraverso uno specifico form e una mini-mappa con un solo
+marker, che `e possibile spostare per identificare in maniera precisa la posizione del
+nuovo Point of Interest da aggiungere
+
+6. *importa POI*, dove si possono aggiornare i dati spaziali dei POI presenti nel database
+ottenendoli da OpenStreetMap o importare i dati relativi ai quartieri di Bologna dal
+database.
+Da tutte le pagine è possibile effettuare il logout, cliccando sull’immagine del proprio
+profilo,tornando cos`ı alla pagina di login e eliminando il token necessario per le chiamate
+API.
+
+Da tutte le pagine è possibile effettuare il logout, cliccando sull’immagine del proprio
+profilo,tornando così alla pagina di login e eliminando il token necessario per le chiamate API.
+
 
 
 
