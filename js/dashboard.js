@@ -1,9 +1,9 @@
 //if token is not present, redirect to login page
-var jwt = localStorage.getItem("jwt");
+/*var jwt = localStorage.getItem("jwt");
 if (jwt == null) {
     window.location.href = './login.html'
 }
-
+*/
 var nfontanelle=1 ;
 var npanchine=1 ;
 var nbagni=1;
@@ -17,9 +17,13 @@ $(document).ready(function() {
             url: "https://hunt-in-bo.herokuapp.com/user",
             dataType: 'json',
             headers: {"x-access-token": (JSON.parse(localStorage.getItem("jwt"))).token},
-            success: function (nutenti){
+            success: function (nutenti){9
                 document.getElementById("nutenti").innerHTML = nutenti.length;
-            }
+            },
+            error: function () {
+                window.location.href = './login.html'
+             }
+
         });
 
     });
