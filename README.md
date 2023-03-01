@@ -1,6 +1,7 @@
 # Front-end per Sistemi context-aware:
 
 **Sviluppo front-end del progetto Hunt-in-bo**
+
 Cercando di rispettare il paradigma RESTful, ogni risposta del server contiene il codice di stato HTTP e il tipo di contenuto (text/html oppure application/json) inoltre ogni connessione viene terminata dopo aver inviato la risposta, rispettando la proprietà *stateless* del protocollo http.
 
 Il client è stato sviluppato utilizzando js, jquery e [jquery redirect](https://github.com/mgalante/jquery.redirect) per ottenere i dati dal webserver e html, css, chart.js e [datatables](https://datatables.net/reference/api/) per visualizzarli.
@@ -18,6 +19,10 @@ di utilizzare Leaflet
 
 La struttura si ramifica in diverse pagine, che permettono all’amministratore di gestire e
 controllare i dati che verranno poi mostrati dall’app mobile.
+
+
+![client-schermo](https://user-images.githubusercontent.com/33379163/222118384-e3e5c492-fde2-4955-8903-f64e46e73af2.png)
+
 
 L'API raggiungibile dal link nel titolo è composta da 4 endpoint:
 1. *autenticazione*, una semplice pagina di login che una volta inserite le credenziali
@@ -38,6 +43,13 @@ in base al numero di utenti registrati. I dati visualizzati possono essere filtr
 con l’utilizzo della barra di ricerca, ed inoltre possibile aggiungere un nuovo utente
 tramite un semplice form
 
+
+
+![client-mappa-schermo](https://user-images.githubusercontent.com/33379163/222119683-1b153a1b-6733-41e0-b28c-6609fcc0f222.png)
+
+
+
+
 4. *mappa*, la pagina che permette la visualizzazione grafica di tutti i dati con ampi margini di personalizzazione. Dal menù a tendina a lato si può scegliere quindi, di mostrare tutti i POI, oppure selezionare solo alcune categorie. Attraverso l'uso di diversi bottoni si può abilitare la visualizzazione dei quartieri di Bologna in base alla densità di Poi presenti o al numero di richieste fatte dagli utenti. E' possibile filtrare le richieste fatte dagli utenti al servizio di raccomandazione, specificando un determinato periodo temporale con data di inizio e data di fine, e raggruppandole successivamente in un certo numero di cluster a seconda del valore scelto
 
 5. *aggiungi POI*, per aggiungere manualmente un punto di interesse relativo ad una
@@ -54,8 +66,5 @@ API.
 
 Da tutte le pagine è possibile effettuare il logout, cliccando sull’immagine del proprio
 profilo,tornando così alla pagina di login e eliminando il token necessario per le chiamate API.
-
-
-
 
 
